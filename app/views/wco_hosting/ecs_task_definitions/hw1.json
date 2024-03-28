@@ -1,0 +1,40 @@
+
+{
+  "family": "helloworld",
+  "networkMode": "awsvpc",
+  "taskRoleArn": "arn:aws:iam::831556125887:role/ecs_role_1",
+  "executionRoleArn": "arn:aws:iam::831556125887:role/ecs_role_1",
+  "containerDefinitions": [
+      {
+          "name": "helloworld",
+          "image": "piousbox/php82:0.0.2",
+          "portMappings": [
+              {
+                  "containerPort": 80,
+                  "hostPort": 80,
+                  "protocol": "tcp"
+              }
+          ],
+          "logConfiguration": {
+            "logDriver": "awslogs",
+            "options": {
+              "awslogs-create-group": "true",
+              "awslogs-group": "awslogs-group-1",
+              "awslogs-region": "us-east-1",
+              "awslogs-stream-prefix": "wco1-"
+            }
+          },
+          "essential": true,
+          "entryPoint": [
+            "sh",
+            "-c"
+          ],
+          "command": [
+              "/bin/sh -c \"cd /var/www/html && wget https://d15g8hc4183yn4.cloudfront.net/wp-content/uploads/2024/03/28014630/helloworld-0.0.1.zip && unzip helloworld-0.0.1.zip && apachectl -D FOREGROUND \" "
+          ]
+      }
+  ],
+  "requiresCompatibilities": [ "FARGATE" ],
+  "cpu": "256",
+  "memory": "512"
+  }
