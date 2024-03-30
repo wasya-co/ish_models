@@ -18,11 +18,22 @@ class WcoHosting::ApplianceTmpl
   end
   field :descr, type: :string
 
+  field :ecs_task_definition_erb, type: :string
+  def ecs_task_definition
+
+
   field :image
   validates :image, presence: true
 
-  field :volume_zip
-  validates :volume_zip, presence: true
+  field :volume_zip_url
+  field :volume_zip_exe
+  def volume_zip
+    if volume_zip_exe
+      eval( volume_zip_exe )
+    else
+      volume_zip_url
+    end
+  end
 
   ## 2023-12-08 :: These names are impossible to change already.
   KIND_CRM        = 'crm'
