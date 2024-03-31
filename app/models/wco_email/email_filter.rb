@@ -17,6 +17,9 @@ class WcoEmail::EmailFilter
   field :body_regex
   field :body_exact
 
+  field :skip_from_regex
+  field :skip_to_exact
+
   belongs_to :tag, class_name: 'Wco::Tag', inverse_of: :email_filters, optional: true
 
   KIND_AUTORESPOND_TMPL = 'autorespond-template'

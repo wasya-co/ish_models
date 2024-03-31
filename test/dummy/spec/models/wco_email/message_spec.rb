@@ -12,7 +12,6 @@ RSpec.describe WcoEmail::Message do
 
     it 'conversation must be present' do
       m = WcoEmail::Message.create()
-      # puts! m.errors.messages, 'm errors'
       m.persisted?.should eql false
       m.errors.messages[:conversation].include?( "can't be blank" ).should eql true
     end

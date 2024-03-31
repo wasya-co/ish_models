@@ -194,7 +194,22 @@ class WcoEmail::MessageStub
 
       if reason
         puts! "Applying filter #{filter} to conv #{@message.conversation} for matching #{reason}" if DEBUG
-        @message.apply_filter( filter )
+
+        ## skip
+        skip_reason = nil
+        if filter.skip_to_exact.present? && @message.to&.downcase.include?( filter.skip_to_exact.downcase )
+          skip_reason = 'skip_to_exact'
+        end
+        if filter.skip_from_regex.present? && @message.from.downcase.match( filter.skip_from_regex )
+          skip_reason = 'skip_from_regex'
+        end
+
+        if skip_reason
+          puts! "NOT Applying filter #{filter} to conv #{@message.conversation} for matching #{skip_reason}" if DEBUG
+        else
+          @message.apply_filter( filter )
+        end
+
       end
     end
 
