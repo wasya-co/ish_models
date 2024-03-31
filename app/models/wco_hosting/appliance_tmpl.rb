@@ -19,11 +19,20 @@ class WcoHosting::ApplianceTmpl
   field :descr, type: :string
 
   field :ecs_task_definition_erb, type: :string
-  def ecs_task_definition
+  # def ecs_task_definition
+  #   ac   = ActionController::Base.new
+  #   ac.instance_variable_set( :@tmpl, self )
+  #   rendered_str = ac.render_to_string("wco_hosting/scripts/nginx_site.conf")
+  #   Wco::Log.puts! rendered_str, 'add_nginx_site rendered_str', obj: @obj
+
+  #   file = Tempfile.new('prefix')
+  #   file.write rendered_str
+  #   file.close
+  # end
 
 
   field :image
-  validates :image, presence: true
+  # validates :image, presence: true
 
   field :volume_zip_url
   field :volume_zip_exe

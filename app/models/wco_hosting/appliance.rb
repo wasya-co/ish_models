@@ -38,13 +38,13 @@ class WcoHosting::Appliance
     tmpl.kind
   end
 
-  belongs_to :serverhost,  class_name: 'WcoHosting::Serverhost'
+  belongs_to :serverhost,  class_name: 'WcoHosting::Serverhost', optional: true
 
   field :port
 
-  STATE_PENDING = 'state-pending'
-  STATE_LIVE    = 'state-live'
-  STATE_TERM    = 'state-term'
+  STATE_PENDING    = 'pending'
+  STATE_LIVE       = 'live'
+  STATE_TERMINATED = 'terminated'
   field :state, default: STATE_PENDING
 
   def to_s

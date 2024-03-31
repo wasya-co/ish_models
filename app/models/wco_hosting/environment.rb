@@ -13,6 +13,9 @@ class WcoHosting::Environment
 
   has_many :appliances, class_name: 'WcoHosting::Appliance', inverse_of: :environments
 
+  ## variable @env in execution environments
+  field :env_json, type: Object, default: '{}'
+
   def to_s
     name
   end

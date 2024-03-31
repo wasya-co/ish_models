@@ -1,6 +1,6 @@
 
 {
-  "family": "drupal",
+  "family": "demmitv_drupal",
   "networkMode": "awsvpc",
   "taskRoleArn": "arn:aws:iam::831556125887:role/ecs_role_1",
   "executionRoleArn": "arn:aws:iam::831556125887:role/ecs_role_1",
@@ -30,7 +30,7 @@
             "-c"
           ],
           "command": [
-              "/bin/sh -c \"cd /var/www/html && curl -u abba:simplerpassword https://secrets.wasya.co/demmitv_drupal_ecs1-0.0.0.zip && unzip demmitv_drupal_ecs1-0.0.0.zip && composer install && apachectl -D FOREGROUND \" "
+              "/bin/sh -c \"cd /var/www/html && curl -u abba:simplerpassword https://secrets.wasya.co/demmitv_drupal_ecs1.zip --output demmitv_drupal_ecs1-0.0.0.zip && unzip -o demmitv_drupal_ecs1-0.0.0.zip && cd web && apachectl -D FOREGROUND \" "
           ]
       }
   ],
