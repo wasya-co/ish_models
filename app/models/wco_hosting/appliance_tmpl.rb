@@ -24,12 +24,13 @@ class WcoHosting::ApplianceTmpl
   #   ac.instance_variable_set( :@tmpl, self )
   #   rendered_str = ac.render_to_string("wco_hosting/scripts/nginx_site.conf")
   #   Wco::Log.puts! rendered_str, 'add_nginx_site rendered_str', obj: @obj
-
   #   file = Tempfile.new('prefix')
   #   file.write rendered_str
   #   file.close
   # end
 
+  field :stdout, type: :string, default: ''
+  field :stderr, type: :string, default: ''
 
   field :image
   # validates :image, presence: true
@@ -90,7 +91,9 @@ class WcoHosting::ApplianceTmpl
     self.product_id = stripe_product.id
   end
 
-
+  def self.list
+    [[nil,nil]] + all.map { |a| [ a.kind, a.id ] }
+  end
   def to_s
     "#{kind}-#{version}"
   end

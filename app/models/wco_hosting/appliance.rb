@@ -6,6 +6,9 @@ class WcoHosting::Appliance
   store_in collection: 'wco_appliances'
 
   has_many :logs, as: :obj, class_name: 'Wco::Log'
+  field :stdout, type: :string, default: ''
+  field :stderr, type: :string, default: ''
+
 
   belongs_to :leadset,      class_name: 'Wco::Leadset', inverse_of: :appliances
   belongs_to :subscription, class_name: 'Wco::Subscription' # , inverse_of: :appliance
