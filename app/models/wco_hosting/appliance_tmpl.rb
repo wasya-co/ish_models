@@ -4,6 +4,7 @@ class WcoHosting::ApplianceTmpl
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::Paranoia
+  include Wco::Utils
   store_in collection: 'wco_appliance_tmpls'
 
   field :kind, type: :string
@@ -75,9 +76,7 @@ class WcoHosting::ApplianceTmpl
   has_many :appliances, class_name: 'WcoHosting::Appliance'
   has_many :subscriptions, as: :product, class_name: 'Wco::Subscription'
   has_many :prices, as: :product, class_name: 'Wco::Price'
-
-  # has_and_belongs_to_many :leadsets, class_name: 'Wco::Leadset'
-  # has_many :appliance_tmpl_leadsets, class_name: 'WcoHosting::ApplianceTmplLeadset'
+  has_and_belongs_to_many :task_tmpls, class_name: 'WcoHosting::TaskTmpl'
 
   field :product_id # stripe
 
@@ -91,9 +90,6 @@ class WcoHosting::ApplianceTmpl
     self.product_id = stripe_product.id
   end
 
-  def self.list
-    [[nil,nil]] + all.map { |a| [ a.kind, a.id ] }
-  end
   def to_s
     "#{kind}-#{version}"
   end

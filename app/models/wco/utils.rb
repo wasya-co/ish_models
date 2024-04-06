@@ -17,6 +17,15 @@ module Wco::Utils
     out.with_indifferent_access
   end
 
+  def self.included(base)
+    base.extend(ClassMethods)
+  end
+  module ClassMethods
+    def list
+      [[nil,nil]] + all.map { |a| [ a, a.id ] }
+    end
+  end
+
   private
 
   def set_slug

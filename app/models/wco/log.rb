@@ -6,8 +6,8 @@ class Wco::Log
   include Mongoid::Paranoia
   store_in collection: 'wco_logs'
 
-  field :label,   type: :string
-  field :message, type: :string
+  field :label,   type: :string ## can be the stream: 'stdout' or 'stderr'
+  field :message, type: :string ## can be json
 
   belongs_to :obj, polymorphic: true, optional: true
 

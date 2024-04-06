@@ -3,21 +3,25 @@ class WcoHosting::Appliance
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::Paranoia
+  include Wco::Utils
   store_in collection: 'wco_appliances'
 
   has_many :logs, as: :obj, class_name: 'Wco::Log'
-  field :stdout, type: :string, default: ''
-  field :stderr, type: :string, default: ''
+  has_many :files,          class_name: 'WcoHosting::File'
 
+  field :rc_json, type: Object, default: '{}'
+  def rc
+    OpenStruct.new JSON.parse rc_json
+  end
 
   belongs_to :leadset,      class_name: 'Wco::Leadset', inverse_of: :appliances
   belongs_to :subscription, class_name: 'Wco::Subscription' # , inverse_of: :appliance
 
-  field :service_name
-  before_validation :set_service_name, on: :create, unless: ->{ service_name }
-  def set_service_name
-    self[:service_name] = host.gsub(".", "_")
-  end
+  # field :service_name
+  # before_validation :set_service_name, on: :create, unless: ->{ service_name }
+  # def set_service_name
+  #   self[:service_name] = host.gsub(".", "_")
+  # end
 
 
   belongs_to :environment, class_name: 'WcoHosting::Environment', inverse_of: :appliances, optional: true
@@ -26,9 +30,9 @@ class WcoHosting::Appliance
   end
 
   field :subdomain
-  field :domain
+  belongs_to :domain, class_name: 'WcoHosting::Domain'
   def host
-    "#{subdomain}.#{domain}"
+    "#{subdomain}.#{domain.name}"
   end
 
   field :n_retries, type: :integer, default: 3
@@ -37,9 +41,7 @@ class WcoHosting::Appliance
   def tmpl
     appliance_tmpl
   end
-  def kind
-    tmpl.kind
-  end
+  delegate :kind, to: :appliance_tmpl
 
   belongs_to :serverhost,  class_name: 'WcoHosting::Serverhost', optional: true
 
@@ -51,7 +53,7 @@ class WcoHosting::Appliance
   field :state, default: STATE_PENDING
 
   def to_s
-    service_name
+    appliance_tmpl # kind
   end
 end
 

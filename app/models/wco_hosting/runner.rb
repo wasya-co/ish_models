@@ -10,6 +10,7 @@ class WcoHosting::Runner
 
   TASK_REDEPLOY_ECS_TASK_DEFINITION = 'redeploy-ecs-task-definition'
   TASK_REDEPLOY_ECS_TASK            = 'redeploy-ecs-task'
+  TASK_SYNC_ECS_TASK                = 'sync-ecs-task'
   TASKS = []
 
   def self.do_exec cmd

@@ -28,6 +28,7 @@ class WcoHosting::Serverhost
   # field :ssh_key
 
   has_many :appliances, class_name: 'WcoHosting::Appliance'
+  has_many :files,      class_name: 'WcoHosting::File'
 
   def create_appliance app
     # puts! app, 'Serverhost#create_appliance'

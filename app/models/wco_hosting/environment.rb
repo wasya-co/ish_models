@@ -3,6 +3,7 @@ class WcoHosting::Environment
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::Paranoia
+  include Wco::Utils
   store_in collection: 'wco_environments'
 
   belongs_to :leadset,      class_name: 'Wco::Leadset', inverse_of: :environments
@@ -15,6 +16,7 @@ class WcoHosting::Environment
 
   ## variable @env in execution environments
   field :env_json, type: Object, default: '{}'
+
 
   def to_s
     name
