@@ -2,6 +2,9 @@
 .tags--form
   = form_for tag do |f|
 
+    .d-flex
+      %label site
+      = f.select :site_id, options_for_select(@sites_list, selected: tag.site_id), {}, class: 'select2'
     .field
       %label slug
       = f.text_field :slug

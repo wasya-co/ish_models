@@ -9,9 +9,10 @@ class Wco::Tag
   validates :slug, presence: true, uniqueness: true
   index({ slug: -1 })
 
-  belongs_to :parent, class_name: 'Wco::Tag', inverse_of: :sons
+  belongs_to :parent, class_name: 'Wco::Tag', inverse_of: :sons, optional: true
   has_many :sons, class_name: 'Wco::Tag', inverse_of: :parent
 
+  belongs_to :site, class_name: 'Wco::Site', optional: true
   has_many :email_filters, class_name: 'WcoEmail::EmailFilter', inverse_of: :tag
 
   has_and_belongs_to_many :conversations, class_name: 'WcoEmail::Conversation', index: true

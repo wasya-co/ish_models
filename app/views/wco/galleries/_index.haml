@@ -14,7 +14,7 @@
     - if galleries.length > 0
       = form_tag update_galleries_path do
 
-        = render '/wco/tags/list_mini', tags: @tags
+        = render '/wco/tags/list_chips', tags: @tags
 
         = submit_tag 'Add Tags', data: { confirm: 'Are you sure?' }
         &nbsp;&nbsp;

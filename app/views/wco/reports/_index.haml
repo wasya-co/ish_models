@@ -1,7 +1,8 @@
 
 - config ||= {}
 
-.reports--list
+.reports--index
+  = paginate reports, :param_name => :reports_page, :views_prefix => 'wco'
   %ul
     - reports.each do |ttt|
       %li.Card
@@ -15,5 +16,5 @@
             .gray.mini= ttt.id
         - if !config[:skip_tags]
           .flex-row
-            = render '/wco/tags/index_inline', tags: ttt.tags
-
+            = render '/wco/tags/list_chips', tags: ttt.tags
+  = paginate reports, :param_name => :reports_page, :views_prefix => 'wco'

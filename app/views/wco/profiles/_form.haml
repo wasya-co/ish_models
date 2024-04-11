@@ -2,6 +2,10 @@
 .profiles--form
   = form_for profile do |f|
     .field
+      %label email
+      = f.text_field :email
+
+    .field
       %label role
       = f.select :role, options_for_select(Wco::Profile.roles_list, selected: profile.role )
 

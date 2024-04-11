@@ -16,6 +16,7 @@ class Wco::Site
 
   has_many :publishers # , class_name: 'Wco::Publisher'
   has_many :headlines # , class_name: 'Wco::Newstitle'
+  has_many :tags, class_name: 'Wco::Tag'
 
   field :slug
   validates :slug, presence: true, uniqueness: true
@@ -63,6 +64,41 @@ class Wco::Site
       headers: { 'Content-Type' => 'application/hal+json' },
       basic_auth: { username: username, password: password },
     )
+  end
+
+  def wp_import
+    site = self
+
+    root_tag = Wco::Tag.find_or_create_by slug: "#{site.slug}_wp-import", site_id: site.id
+    url      = "#{site.origin}/wp-json/wp/v2/posts"
+    pi_admin = Wco::Profile.find_or_create_by email: 'admin@piousbox.com'
+    n_pages  = 12
+    per_page = 100
+
+    (1..n_pages).each do |page|
+      print "Page #{page}"
+
+      posts = HTTParty.get url, query: { per_page: per_page, page: page }
+      posts.each do |post|
+        report = Wco::Report.new({
+          legacy_id: post['id'],
+          created_at: post['date'],
+          slug: post['link'].sub(site.origin, ''),
+          title: post['title']['rendered'],
+          subtitle: post['excerpt']['rendered'],
+          body: post['content']['rendered'],
+          author: pi_admin,
+          tag_ids: ( [ root_tag ] + site.tags.where( :legacy_id.in => post['categories'] ) ).map(&:id),
+        })
+
+        if report.save
+          print '^'
+        else
+          puts report.errors.messages
+        end
+      end
+    end
+    puts "ok"
   end
 
 end

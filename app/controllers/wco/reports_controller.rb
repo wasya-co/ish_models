@@ -34,7 +34,7 @@ class Wco::ReportsController < Wco::ApplicationController
 
   def index
     authorize! :index, Wco::Report
-    @reports = Wco::Report.all
+    @reports = Wco::Report.all.page( params[:reports_page] ).per( current_profile.per_page )
     if params[:deleted]
       @reports = Wco::Report.unscoped.where( :deleted_at.ne => nil )
     end

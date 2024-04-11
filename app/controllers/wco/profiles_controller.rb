@@ -1,6 +1,18 @@
 
 class Wco::ProfilesController < Wco::ApplicationController
 
+  def create
+    @profile = Wco::Profile.new params[:profile].permit!
+    authorize! :create, @profile
+    if @profile.save
+      flash_notice @profile
+      redirect_to action: :index
+    else
+      flash_alert @profile
+      render action: 'new'
+    end
+  end
+
   def edit
     @profile = Wco::Profile.find params[:id]
     authorize! :update, @profile
@@ -9,6 +21,15 @@ class Wco::ProfilesController < Wco::ApplicationController
   def index
     @profiles = Wco::Profile.all
     authorize! :index, Wco::Profile
+    if params[:q]
+      q = URI.decode(params[:q])
+      @profiles = @profiles.where({ email: /#{q}/i })
+    end
+  end
+
+  def new
+    @new_profile = Wco::Profile.new
+    authorize! :new, @new_profile
   end
 
   def update

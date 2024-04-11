@@ -11,14 +11,14 @@
       -# %th kind
       %th origin
       -# %th post_path
-    - @sites.each do |ttt|
+    - @sites.each do |site|
       %tr
         %td
           .flex-row
-            = button_to '[x]', site_path(ttt), method: :delete, data: { confirm: 'Are you sure?' }
-            = link_to '[~]', edit_site_path(ttt)
-            .gray.mini= ttt.id
-        %td= ttt.slug
-        -# %td= ttt.kind
-        %td= ttt.origin
-        -# %td= ttt.post_path
+            = button_to '[x]', site_path(site), method: :delete, data: { confirm: 'Are you sure?' }
+            = link_to '[~]', edit_site_path(site)
+            .gray.mini= site.id
+        %td= link_to site.slug, site_path(site)
+        -# %td= site.kind
+        %td= site.origin
+        -# %td= site.post_path

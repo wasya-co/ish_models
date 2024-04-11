@@ -10,11 +10,12 @@ class Wco::Report
   store_in collection: 'wco_reports'
 
   field :title
-  validates :title, presence: true, uniqueness: true
+  validates :title, presence: true # , uniqueness: true
   index({ title: 1 }, { unique: true })
   def name ; title ; end
 
   field :subtitle
+  field :legacy_id, type: String
 
   field :slug
   validates :slug, presence: true, uniqueness: true
@@ -27,7 +28,10 @@ class Wco::Report
   field :y, :type => Float
   field :z, :type => Float
 
-  # has_one :photo
+  belongs_to :author, class_name: 'Wco::Profile'
+
+  # has_one :image_thumb
+  # has_one :image_hero
 
   has_and_belongs_to_many :tags
 

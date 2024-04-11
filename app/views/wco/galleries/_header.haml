@@ -12,7 +12,7 @@
       %i.material-icons visibility_off
   = render 'meta', :item => gallery
 
-  = render '/wco/tags/list_mini', tags: gallery.tags, resource: gallery
+  = render '/wco/tags/list_chips', tags: gallery.tags, resource: gallery
 
   %ul
     %li slug :: #{gallery.slug}

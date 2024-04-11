@@ -1,0 +1,8 @@
+
+.sites-show.maxwidth
+  .header
+    %h5.title
+      = @site
+
+  = render '/wco/tags/header'
+  = render '/wco/tags/index', tags: @site.tags

@@ -7,7 +7,6 @@
     `#{@report.slug}`
     .gray.mini= @report.id
 
-  .descr= raw @report.body
-  -# %pre.descr= raw @report.body
+  = render 'wco/tags/index_chips', tags: @report.tags
 
-  = @report.inspect
+  .descr= raw @report.body

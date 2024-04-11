@@ -38,6 +38,11 @@ class Wco::SitesController < Wco::ApplicationController
     @new_site = Wco::Site.new
   end
 
+  def show
+    @site = Wco::Site.find params[:id]
+    authorize! :show, @site
+  end
+
   def update
     @site = Wco::Site.find params[:id]
     authorize! :update, @site
