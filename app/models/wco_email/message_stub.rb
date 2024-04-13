@@ -118,7 +118,7 @@ class WcoEmail::MessageStub
       cc:  the_mail.cc ? the_mail.cc[0] : nil,
       ccs: the_mail.cc,
     })
-    puts! @message, '@message'
+    # puts! @message, '@message'
 
     ## Parts
     the_mail.parts.each do |part|

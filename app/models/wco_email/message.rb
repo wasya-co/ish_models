@@ -70,7 +70,7 @@ class WcoEmail::Message
   field :date, type: DateTime
   def received_at ; date ; end
 
-  belongs_to :conversation, class_name: 'WcoEmail::Conversation'
+  belongs_to :conversation, class_name: 'WcoEmail::Conversation', index: true
   def conv ; conversation ; end
 
   belongs_to :stub, class_name: 'WcoEmail::MessageStub'
@@ -80,7 +80,7 @@ class WcoEmail::Message
   has_many :replies, class_name: '::WcoEmail::Context', inverse_of: :reply_to_message
 
   def apply_filter filter
-    puts! filter, 'WcoEmail::Message#apply_filter'
+    puts! filter, 'WcoEmail::Message#apply_filter' if DEBUG
     conv.filter = filter
 
     case filter.kind

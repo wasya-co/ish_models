@@ -30,7 +30,7 @@ class WcoHosting::Appliance
   end
 
   field :subdomain
-  belongs_to :domain, class_name: 'WcoHosting::Domain'
+  belongs_to :domain, class_name: 'WcoHosting::Domain', optional: true
   def host
     "#{subdomain}.#{domain.name}"
   end

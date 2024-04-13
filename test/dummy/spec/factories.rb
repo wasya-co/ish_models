@@ -39,11 +39,11 @@ FactoryBot.define do
     kind       { WcoHosting::ApplianceTmpl::KIND_HELLOWORLD }
     image      { 'some-image' }
     version    { '0.0.0' }
-    volume_zip { 'somefile.zip' }
+    volume_zip_url { 'somefile.zip' }
 
     factory :hw0_tmpl do
       image      { 'piousbox/php82:0.0.2' }
-      volume_zip { 'https://d15g8hc4183yn4.cloudfront.net/wp-content/uploads/2023/11/02121950/helloworld__prototype-1.zip' }
+      volume_zip_url { 'https://d15g8hc4183yn4.cloudfront.net/wp-content/uploads/2023/11/02121950/helloworld__prototype-1.zip' }
     end
 
   end
@@ -52,7 +52,7 @@ FactoryBot.define do
 
   factory :email_action_template, class: 'WcoEmail::EmailActionTemplate' do
     after :build do |doc|
-      doc.email_template = ET.all.first || create( :email_template )
+      doc.email_template = WcoEmail::EmailTemplate.all.first || create( :email_template )
     end
   end
 
@@ -193,6 +193,9 @@ FactoryBot.define do
   factory :report, class: 'Wco::Report' do
     title { generate(:name) }
     body { "xx some-body xx" }
+    after :build do |doc|
+      doc.author = Wco::Profile.all.first || create( :profile, email: 'test-1@piousbox.com' )
+    end
   end
 
   ## S

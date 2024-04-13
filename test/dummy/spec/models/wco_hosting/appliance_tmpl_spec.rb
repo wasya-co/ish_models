@@ -22,7 +22,7 @@ RSpec.describe WcoHosting::ApplianceTmpl do
       kind: 'hello_world',
       version: '0.0.0',
       image: 'some-image',
-      volume_zip: 'same',
+      volume_zip_url: 'same',
     })
     tmpl.persisted?.should eql true
   end

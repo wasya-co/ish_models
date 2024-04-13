@@ -8,6 +8,7 @@ class Wco::ReportsController < Wco::ApplicationController
 
     @report = Wco::Report.new params[:report].permit!
     authorize! :create, @report
+    @report.author = current_profile
     if @report.save
       flash_notice "created report"
     else

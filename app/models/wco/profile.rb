@@ -26,6 +26,10 @@ class Wco::Profile
     [nil] + ROLES
   end
 
+  def self.ai_writer
+    find_or_create_by email: 'ai-writer@wasya.co'
+  end
+
   def to_s
     email
   end

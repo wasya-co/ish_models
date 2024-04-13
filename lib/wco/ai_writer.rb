@@ -45,6 +45,7 @@ class Wco::AiWriter
       title: new_title,
       # slug:  new_title,
       body:  new_body,
+      author: Wco::Profile.ai_writer,
     })
 
     return report

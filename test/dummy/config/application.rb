@@ -21,5 +21,3 @@ def puts! a, b=''
   puts "+++ +++ #{b}:"
   puts a.inspect
 end
-
-DEBUG ||= true

@@ -49,14 +49,10 @@ Rails.application.configure do
   # Tell Active Support which deprecation messages to disallow.
   config.active_support.disallowed_deprecation_warnings = []
 
-  # Raises error for missing translations.
-  # config.i18n.raise_on_missing_translations = true
-
-  # Annotate rendered view with file names.
-  # config.action_view.annotate_rendered_view_with_filenames = true
-
   ## From: https://guides.rubyonrails.org/action_mailer_basics.html#mailer-testing
   # config.action_mailer.interceptors = %w[SandboxEmailInterceptor]
   config.action_mailer.observers = %w[EmailDeliveryObserver]
 
 end
+
+DEBUG = false
