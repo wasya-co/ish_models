@@ -1,0 +1,18 @@
+
+.sitemap-paths--form
+  = form_for spath do |f|
+    = hidden_field_tag :site_id, spath[:site_id] || params[:site_id]
+
+    .d-flex
+      .field
+        %label Path
+        = f.text_field :path
+      .field
+        %label redirect_to
+        = f.text_field :redirect_to
+      .field
+        %label selector
+        = f.text_field :selector
+
+      .actions
+        = f.submit 'Go'

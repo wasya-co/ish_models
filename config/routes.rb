@@ -54,7 +54,9 @@ Wco::Engine.routes.draw do
   get 'reports/deleted', to: 'reports#index', as: :deleted_reports, defaults: { deleted: true }
   resources :reports
 
+  post 'sites/:id/check_sitemap', to: 'sites#check_sitemap', as: :check_sitemap
   resources :sites
+  resources :sitemap_paths
   resources :subscriptions
 
   delete 'tags/remove/:id/from/:resource/:resource_id', to: 'tags#remove_from', as: :remove_tag_from

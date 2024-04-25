@@ -29,7 +29,10 @@ class WcoEmail::Message
 
   field :read_at, type: DateTime
   index({ read_at: -1 })
-  scope :unread, ->{ where( read_at: nil ) }
+  def self.unread
+    where( read_at: nil )
+  end
+  # scope :unread, ->() { where( read_at: nil ) }
 
   def part_html_sanitized
     doc = Nokogiri::HTML part_html

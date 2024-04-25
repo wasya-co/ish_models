@@ -1,6 +1,13 @@
 
 class Wco::SitesController < Wco::ApplicationController
 
+  def check_sitemap
+    @site = Wco::Site.find params[:id]
+    authorize! :check_sitemap, @site
+    @site.check_sitemap
+    redirect_to request.referrer
+  end
+
   def create
     @site = Wco::Site.new params[:site].permit!
     authorize! :create, @site
@@ -41,6 +48,8 @@ class Wco::SitesController < Wco::ApplicationController
   def show
     @site = Wco::Site.find params[:id]
     authorize! :show, @site
+
+    @new_sitemap_path = Wco::SitemapPath.new( site_id: @site.id )
   end
 
   def update

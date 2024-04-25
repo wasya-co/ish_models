@@ -167,7 +167,7 @@ textarea.monospace {
 /* M */
 
 .maxwidth {
-  width: 1000px;
+  max-width: 1000px; /* @TODO: this would be responsive by-breakpoint _vp_ 2024-04-23 */
   margin: auto;
 }
 

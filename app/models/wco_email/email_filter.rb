@@ -10,6 +10,9 @@ class WcoEmail::EmailFilter
 
   PAGE_PARAM_NAME = :filters_page
 
+  FIELD_OPTS     = [ :subject, :from, :to, :to_and_cc, :body, ]
+  MATCHTYPE_OPTS = [ :regex, :exact_insensitive, ]
+
   field :from_regex
   field :from_exact
   field :subject_regex
@@ -19,6 +22,10 @@ class WcoEmail::EmailFilter
 
   field :skip_from_regex
   field :skip_to_exact
+
+  has_many :email_filter_conditions
+  has_many :email_filter_skip_conditions, class_name: 'WcoEmail::EmailFilterCondition'
+  has_and_belongs_to_many :action_tmpls, class_name: 'Wco::OfficeActionTemplate'
 
   belongs_to :tag, class_name: 'Wco::Tag', inverse_of: :email_filters, optional: true
 
@@ -35,6 +42,7 @@ class WcoEmail::EmailFilter
 
   KINDS = [ nil, KIND_AUTORESPOND_TMPL, KIND_AUTORESPOND_EACT, KIND_ADD_TAG, KIND_REMOVE_TAG, KIND_DESTROY_SCHS]
   field :kind
+
 
   belongs_to :email_template,        class_name: 'WcoEmail::EmailTemplate',         optional: true
   belongs_to :email_action_template, class_name: 'WcoEmail::EmailActionTemplate',   optional: true

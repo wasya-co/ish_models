@@ -7,36 +7,39 @@
 
     %i.fa.fa-compress.collapse-expand#collapseHeaderModels
       Wco Suite
-    .flex-row
-      %ul
-        %li= link_to 'ROOT', '/'
-        - if defined? wco_email
-          %li= link_to '/email',   '/email'
-        - if defined? wco_hosting
-          %li= link_to '/hosting', '/hosting'
-        - if defined? iro
-          %li= link_to '/trading', '/trading'
+    .W
 
-      %ul
-        %li= render '/wco/invoices/header'
-        %li= render '/wco/products/header'
-        %li= render '/wco/tags/header'
-        %li= render '/wco/logs/header'
+      .d-flex.flex-wrap
 
-      %ul
-        %li= render '/wco/leadsets/header'
-        %li= render '/wco/leads/header'
-        %li= render '/wco/office_action_templates/header'
-        %li= render '/wco/office_actions/header'
-        %li= render '/wco/profiles/header'
+        %ul
+          %li= link_to 'ROOT', '/'
+          - if defined? wco_email
+            %li= link_to '/email',   '/email'
+          - if defined? wco_hosting
+            %li= link_to '/hosting', '/hosting'
+          - if defined? iro
+            %li= link_to '/trading', '/trading'
 
-      %ul
-        %li= render '/wco/sites/header'
-        %li= render '/wco/headlines/header'
-        %li= render '/wco/publishers/header'
-        %li= render '/wco/galleries/header_mini'
-        %li= render '/wco/reports/header'
-        %li= render '/wco/videos/header'
+        %ul
+          %li= render '/wco/invoices/header'
+          %li= render '/wco/products/header'
+          %li= render '/wco/tags/menuitem'
+          %li= render '/wco/logs/header'
+
+        %ul
+          %li= render '/wco/leadsets/header'
+          %li= render '/wco/leads/header'
+          %li= render '/wco/office_action_templates/header'
+          %li= render '/wco/office_actions/header'
+          %li= render '/wco/profiles/header'
+
+        %ul
+          %li= render '/wco/sites/header'
+          %li= render '/wco/headlines/header'
+          %li= render '/wco/publishers/header'
+          %li= render '/wco/galleries/header_mini'
+          %li= render '/wco/reports/header'
+          %li= render '/wco/videos/header'
 
 
     .c

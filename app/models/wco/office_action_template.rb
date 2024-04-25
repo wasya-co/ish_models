@@ -29,13 +29,13 @@ class Wco::OfficeActionTemplate
   has_many :prev_ties, class_name: 'OfficeActionTemplateTie', inverse_of: :next_office_action_template
   accepts_nested_attributes_for :ties
 
+  has_and_belongs_to_many :email_filters, class_name: WcoEmail::EmailFilter
+
   def to_s
     "#{slug}"
   end
-
   def self.list
     [[nil,nil]] + all.map { |ttt| [ ttt.slug, ttt.id ] }
   end
-
 end
-OAT ||= Wco::OfficeActionTemplate
+# OAT ||= Wco::OfficeActionTemplate
