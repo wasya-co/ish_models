@@ -1,6 +1,6 @@
 
 # require 'ish/premium_item'
-require 'ish/utils'
+# require 'ish/utils'
 
 class WcoGame::Location
   include Mongoid::Document
