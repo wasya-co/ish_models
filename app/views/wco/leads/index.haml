@@ -14,4 +14,4 @@
         (#{@leads.length})
       = link_to raw("<i class='fa fa-plus-square'></i>"), new_lead_path
 
-  = render 'index', leads: @leads, search_path: leads_path
+  = render '/wco/leads/table', leads: @leads, search_path: leads_path

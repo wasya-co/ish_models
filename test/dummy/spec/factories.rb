@@ -139,9 +139,23 @@ FactoryBot.define do
   ## P
 
   factory :price, class: 'Wco::Price' do
+    after :build do |doc|
+      stripe_price =  Stripe::Price.create({
+        product:     doc.product.product_id,
+        unit_amount: 124,
+        currency:    'usd',
+      })
+      doc.price_id = stripe_price.id
+    end
   end
 
   factory :product, class: 'Wco::Product' do
+    product_id do
+      stripe_product = Stripe::Product.create({
+        name: 'some test product',
+      })
+      stripe_product.id
+    end
     after :build do |doc|
       price = create( :price, product: doc )
     end

@@ -4,10 +4,20 @@ RSpec::describe Wco::LeadsController do
   routes { Wco::Engine.routes }
 
   before do
-    destroy_every( Wco::Lead, Wco::Leadset )
-    @lead = create( :lead )
+    destroy_every( Wco::Lead, Wco::Leadset, Wco::Tag )
+    @tag  = create( :tag )
+    @lead = create( :lead, tag_ids: [ @tag.id ] )
 
     setup_users
+  end
+
+  it '#create' do
+    n = Wco::Lead.all.length
+    post :create, params: { lead: {
+      email: 'some@email.com',
+      name: 'some name',
+    } }
+    Wco::Lead.all.length.should eql( n + 1 )
   end
 
   it '#edit' do
@@ -44,10 +54,13 @@ RSpec::describe Wco::LeadsController do
   end
 
   it '#update' do
-    @z = create(:lead, email: 'z@z.com',
-      leadset: create(:leadset, email: 'hm@hm.com'),
+    @z = create(:lead,
+      email:  'z@z.com',
     )
-    patch :update, params: { id: @z.id, lead: { email: 'a@a.com', tags: [ '' ] } }
+    patch :update, params: { id: @z.id, lead: {
+      email: 'a@a.com',
+      tag_ids: [ '' ],
+    } }
     Wco::Lead.find( @z.id ).email.should eql 'a@a.com'
   end
 

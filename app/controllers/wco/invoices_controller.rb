@@ -56,32 +56,13 @@ class Wco::InvoicesController < Wco::ApplicationController
     @invoice = Wco::Invoice.new params[:invoice].permit!
     authorize! :create, @invoice
 
-    stripe_invoice = Stripe::Invoice.create({
-      customer:          @invoice.leadset.customer_id,
-      collection_method: 'send_invoice',
-      days_until_due:    0,
-      # collection_method: 'charge_automatically',
-      pending_invoice_items_behavior: 'exclude',
-    })
-    params[:invoice][:items].each do |item|
-      stripe_price = Wco::Price.find( item[:price_id] ).price_id
-      puts! stripe_price, 'stripe_price'
-      invoice_item = Stripe::InvoiceItem.create({
-        customer: @invoice.leadset.customer_id,
-        price:    stripe_price,
-        invoice:  stripe_invoice.id,
-        quantity: item[:quantity],
-      })
-    end
-    Stripe::Invoice.finalize_invoice( stripe_invoice[:id] )
-    if params[:do_send]
-      Stripe::Invoice.send_invoice(stripe_invoice[:id])
-      flash_notice "Scheduled to send the invoice via stripe."
-    end
-    @invoice.update_attributes({ invoice_id: stripe_invoice[:id] })
-
     if @invoice.save
       flash_notice "Created the invoice."
+
+      if params[:do_send]
+        Stripe::Invoice.send_invoice(@invoice[:invoice_id])
+      end
+
       redirect_to action: :show, id: @invoice.id
     else
       flash_alert "Cannot create invoice: #{@invoice.errors.messages}"

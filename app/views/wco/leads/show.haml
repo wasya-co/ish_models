@@ -22,16 +22,16 @@
           %li Address: #{@lead.address}
         -# - if @lead.comment
         -#   %li Comment: #{raw @lead.comment}
-        - if @lead.photo
-          %li
-            = image_tag Photo.find( @lead.photo_id ).photo.url(:small)
 
     .col-md-6
+      - if @lead.photo
+        = image_tag @lead.photo.photo.url(:thumb2)
+
       %h5 Tags
       %ul
         - @lead.tags.each do |tag|
           %li
-            = link_to tag.name, tag_path(tag)
+            = link_to tag, tag_path(tag)
 
   .row
     .col-md-6.ctxs

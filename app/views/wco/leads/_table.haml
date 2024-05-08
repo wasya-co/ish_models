@@ -39,7 +39,7 @@
               = link_to '[~]', edit_lead_path( lead )
               = link_to "#{lead.name} <#{lead.email}>", lead_path( lead )
             %td
-              = image_tag lead.photo.url(:thumb) if lead.photo
+              = image_tag lead.photo.photo.url(:thumb) if lead.photo
             %td.company
               = lead.leadset.company_url
             %td

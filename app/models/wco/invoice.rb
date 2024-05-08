@@ -14,6 +14,8 @@ class Wco::Invoice
   include Mongoid::Paranoia
   store_in collection: 'ish_invoice'
 
+  attr_accessor :is_stripe
+
   field :email, type: String
 
   field :invoice_id, type: String # stripe
@@ -35,7 +37,29 @@ class Wco::Invoice
   field :description, type: String
   field :items,       type: Array   # used by stripe
 
-
+  before_validation :create_stripe, on: :create
+  def create_stripe
+    if is_stripe
+      stripe_invoice = Stripe::Invoice.create({
+        customer:          leadset.customer_id,
+        collection_method: 'send_invoice',
+        days_until_due:    0,
+        # collection_method: 'charge_automatically',
+        pending_invoice_items_behavior: 'exclude',
+      })
+      items.each do |item|
+        stripe_price = Wco::Price.find( item[:price_id] ).price_id
+        invoice_item = Stripe::InvoiceItem.create({
+          customer: leadset.customer_id,
+          price:    stripe_price,
+          invoice:  stripe_invoice.id,
+          quantity: item[:quantity],
+        })
+      end
+      Stripe::Invoice.finalize_invoice( stripe_invoice[:id] )
+      self.invoice_id = stripe_invoice[:id]
+    end
+  end
 
   ## Prawn/pdf unit of measure is 1/72"
   ## Canvas width: 612, height: 792

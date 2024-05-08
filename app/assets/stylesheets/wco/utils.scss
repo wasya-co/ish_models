@@ -188,6 +188,16 @@ textarea.monospace {
   width: calc( 100% - 1em );
 }
 
+/* R */
+
+label.required {
+  &:after {
+    content: ' *';
+    color: red;
+  }
+}
+
+
 /* S */
 .spacer-small {
   height: 20px;

@@ -1,14 +1,23 @@
 
 class Wco::LeadsController < Wco::ApplicationController
-
   before_action :set_lists
 
   def create
-    params[:lead][:tags].delete ''
-    params[:lead][:leadset] = nil if params[:lead][:leadset].blank?
+    params[:lead][:tag_ids]&.delete ''
+    params[:lead].delete :leadset_id if params[:lead][:leadset_id].blank?
 
     @lead = Wco::Lead.new params[:lead].permit!
     authorize! :create, @lead
+
+    if params[:lead][:photo]
+      photo = Wco::Photo.new photo: params[:lead][:photo]
+      photo.is_public = true
+      if photo.save
+        @lead.photo = photo
+      end
+      params[:lead].delete :photo
+    end
+
     if @lead.save
       flash_notice 'ok'
     else
@@ -26,8 +35,6 @@ class Wco::LeadsController < Wco::ApplicationController
     authorize! :index, Wco::Lead
     @leads = Wco::Lead.all
 
-
-
     if params[:q].present?
       q = params[:q].downcase
       @leads = @leads.any_of(
@@ -40,19 +47,6 @@ class Wco::LeadsController < Wco::ApplicationController
         return
       end
     end
-
-    # if params[:q_tag_ids].present?
-    #   carry = nil
-    #   params[:q_tag_ids].each do |term_id|
-    #     lts = LeadTag.where({ term_id: term_id }).map(&:lead_id)
-    #     if carry
-    #       carry = carry & lts
-    #     else
-    #       carry = lts
-    #     end
-    #   end
-    #   @leads = Lead.where({ :id.in => carry })
-    # end
 
     @leads = @leads.page( params[:leads_page ] ).per( current_profile.per_page )
   end
@@ -77,11 +71,21 @@ class Wco::LeadsController < Wco::ApplicationController
   end
 
   def update
-    params[:lead][:tags].delete ''
-    params[:lead].delete :leadset if params[:lead][:leadset].blank?
+    params[:lead][:tag_ids]&.delete ''
+    params[:lead].delete :leadset_id if params[:lead][:leadset_id].blank?
 
     @lead = Wco::Lead.find params[:id]
     authorize! :update, @lead
+
+    if params[:lead][:photo]
+      photo = Wco::Photo.new photo: params[:lead][:photo]
+      photo.is_public = true
+      if photo.save
+        @lead.photo = photo
+      end
+      params[:lead].delete :photo
+    end
+
     if @lead.update params[:lead].permit!
       flash_notice 'ok'
     else
