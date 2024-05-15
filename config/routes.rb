@@ -5,7 +5,8 @@ Wco::Engine.routes.draw do
   namespace :api do
     get 'leads/index_hash', to: 'leads#index_hash'
 
-    get '/obf/:id', to: 'obfuscared_redirects#show'
+    get 'obf',              to: 'obfuscated_redirects#show' ## testing only.
+    get 'obf/:id',          to: 'obfuscared_redirects#show'
   end
 
   get 'application/tinymce', to: 'application#tinymce'

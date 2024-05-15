@@ -140,6 +140,13 @@ FactoryBot.define do
     config { { process_images: false }.to_json }
   end
 
+  ## O
+
+  factory :obf, class: 'Wco::ObfuscatedRedirect' do
+    slug    { 'some-slug' }
+    to_link { 'https://test.com' }
+  end
+
   ## P
 
   factory :price, class: 'Wco::Price' do

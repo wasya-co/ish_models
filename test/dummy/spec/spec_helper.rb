@@ -44,3 +44,6 @@ def setup_users
   sign_in user
 end
 
+Wco::Obf = Wco::ObfuscatedRedirect
+
+

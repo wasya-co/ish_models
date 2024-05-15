@@ -1,6 +1,8 @@
 
 class Wco::Api::ObfuscatedRedirectsController < Wco::ApiController
 
+  skip_before_action :decode_jwt
+
   def show
     @obf = Wco::ObfuscatedRedirect.find params[:id]
     # puts! @obf, '@obf'
@@ -16,7 +18,7 @@ class Wco::Api::ObfuscatedRedirectsController < Wco::ApiController
       render and return
     end
 
-    redirect_to @obf.to
+    redirect_to @obf.to_link
   end
 
 end
