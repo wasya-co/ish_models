@@ -22,7 +22,7 @@ class Wco::Invoice
 
   belongs_to :leadset, class_name: 'Wco::Leadset'
 
-  field :number, type: Integer
+  field :number, type: Integer, default: 100
 
   field :month_on, type: Date
 
@@ -31,8 +31,6 @@ class Wco::Invoice
   def filename
     "invoice-#{number}.pdf"
   end
-
-  # field :amount_cents, type: Integer
 
   field :description, type: String
   field :items,       type: Array   # used by stripe

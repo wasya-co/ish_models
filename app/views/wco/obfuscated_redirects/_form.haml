@@ -1,0 +1,11 @@
+
+.obf--form
+  = form_for obf, as: :obf do |f|
+    .field
+      %label slug
+      = f.text_field :slug
+    .field
+      %label to_link
+      = f.text_field :to_link
+    .actions
+      = f.submit 'Go'

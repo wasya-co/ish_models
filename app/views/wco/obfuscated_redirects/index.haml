@@ -1,0 +1,27 @@
+
+.obf-redirects.maxwidth
+  .header
+    %h5.title
+      obf redirs
+    = link_to '[+]', wco.new_obfuscated_redirect_path
+
+  %ul
+    - @obfs.each do |obf|
+      %li
+        .a
+          .d-inline-block= button_to 'x', wco.obfuscated_redirect_path(obf), method: :delete, data: { confirm: 'Are you sure?' }
+          = link_to '[~]', wco.edit_obfuscated_redirect_path(obf)
+          <b>slug:</b>
+          = link_to obf.slug, wco.obfuscated_redirect_path(obf)
+          <b>id:</b>
+          .mini.gray= obf.id
+        .a
+          <b>To_link:</b>
+          = obf.to_link
+        .collapse-expand#collapseExpand
+          <b>Visits (#{obf.visits.length}): <></b>
+        .hide
+          .d-flex.flex-wrap
+            - obf.visits.each do |vis|
+              .descr= pp_date vis
+

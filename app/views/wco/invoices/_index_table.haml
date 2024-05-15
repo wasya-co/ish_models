@@ -12,9 +12,13 @@
     %tbody
       - invoices.each do |i|
         %tr
-          %td= link_to "View", invoice_path( i )
+          %td
+            = link_to "View", invoice_path(i)
+            = link_to '[~]', edit_invoice_path(i)
           %td= i.email
           %td= i.number
-          %td= i.amount_cents
-          %td= i.paid_amount_cents
+          %td
+            -# = i.prices.map &:amount_cents
+          %td
+            -# = i.paid_amount_cents
           %td= i.created_at.to_s[0..10]

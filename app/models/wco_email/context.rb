@@ -117,7 +117,8 @@ class WcoEmail::Context
   end
 
   def config
-    OpenStruct.new JSON.parse( tmpl[:config_json] )
+    @config ||= OpenStruct.new JSON.parse( tmpl[:config_json] )
+    @config
   end
 
   def utm_tracking_str

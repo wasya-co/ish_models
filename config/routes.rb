@@ -4,6 +4,8 @@ Wco::Engine.routes.draw do
 
   namespace :api do
     get 'leads/index_hash', to: 'leads#index_hash'
+
+    get '/obf/:id', to: 'obfuscared_redirects#show'
   end
 
   get 'application/tinymce', to: 'application#tinymce'
@@ -35,6 +37,8 @@ Wco::Engine.routes.draw do
   resources :leadsets
   delete 'logs/bulkop', to: 'logs#bulkop', as: :logs_bulkop
   resources :logs
+
+  resources :obfuscated_redirects
 
   post 'office_action_templates', to: 'office_action_templates#update'
   resources :office_action_templates

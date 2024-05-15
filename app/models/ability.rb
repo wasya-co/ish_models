@@ -17,6 +17,7 @@ class Ability
     end
 
     can [ :open_permission ], Wco
+    can [ :show ], Wco::ObfuscatedRedirect
     # can [ :open_permission ], WcoEmail
 
   end

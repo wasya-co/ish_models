@@ -1,0 +1,5 @@
+
+.invoices-edit.maxwidth
+  .header
+    %h5.title Edit invoice `#{link_to @invoice, invoice_path(@invoice)}`
+  = render 'form', invoice: @invoice

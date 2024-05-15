@@ -70,13 +70,26 @@ class Wco::InvoicesController < Wco::ApplicationController
     end
   end
 
+  def edit
+    @invoice = Wco::Invoice.find params[:id]
+    authorize! :edit, @invoice
+  end
+
+  def email_send
+    @invoice = Wco::Invoice.find params[:id]
+    authorize! :send_email, @invoice
+    out = ::IshManager::LeadsetMailer.monthly_invoice( @invoice.id.to_s )
+    Rails.env.production? ? out.deliver_later : out.deliver_now
+    flash_notice "Scheduled to send an email."
+    redirect_to controller: :leadsets, action: :show, id: @invoice.leadset_id
+  end
+
   def index
     authorize! :index, Wco::Invoice
     @invoices = Wco::Invoice.all
     if params[:leadset_id]
       @invoices = @invoices.where( leadset_id: params[:leadset_id] )
     end
-    @invoices = @invoices.includes( :payments )
   end
 
   def new_pdf
@@ -89,15 +102,6 @@ class Wco::InvoicesController < Wco::ApplicationController
     authorize! :new, @invoice
     @leadset       = Wco::Leadset.find params[:leadset_id]
     @products_list = Wco::Product.list
-  end
-
-  def email_send
-    @invoice = Wco::Invoice.find params[:id]
-    authorize! :send_email, @invoice
-    out = ::IshManager::LeadsetMailer.monthly_invoice( @invoice.id.to_s )
-    Rails.env.production? ? out.deliver_later : out.deliver_now
-    flash_notice "Scheduled to send an email."
-    redirect_to controller: :leadsets, action: :show, id: @invoice.leadset_id
   end
 
   def send_stripe

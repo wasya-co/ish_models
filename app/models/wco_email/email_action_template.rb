@@ -13,8 +13,6 @@ class WcoEmail::EmailActionTemplate
   validates :slug, uniqueness: true, allow_nil: true
   index({ slug: 1 }, { unique: true, name: "slug_idx" })
 
-  # field :from_email ## this is in email_template
-
   belongs_to :email_template, class_name: 'EmailTemplate'
 
   has_many :email_actions, class_name: 'EmailAction'
