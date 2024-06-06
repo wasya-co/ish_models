@@ -10,6 +10,12 @@ RSpec::describe Wco::VideosController do
     @video = create( :video )
   end
 
+  it '#show' do
+    get :show, params: { id: @video.id }
+    response.code.should eql '200'
+    assigns(:video).should_not eql nil
+  end
+
   it '#index' do
     get :index
     response.code.should eql '200'

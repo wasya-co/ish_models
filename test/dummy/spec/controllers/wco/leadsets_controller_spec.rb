@@ -4,7 +4,7 @@ RSpec::describe Wco::LeadsetsController do
   routes { Wco::Engine.routes }
 
   before do
-    destroy_every( Wco::Leadset )
+    destroy_every( Wco::Lead, Wco::Leadset )
     setup_users
   end
 
@@ -21,10 +21,14 @@ RSpec::describe Wco::LeadsetsController do
     end
   end
 
-  it '#show' do
+  it '#show, non-zero leads' do
     leadset = create(:leadset)
+    lead    = create(:lead, leadset: leadset )
+
     get :show, params: { id: leadset.id }
+
     response.code.should eql '200'
+    assigns(:leads).length.should > 0
   end
 
 end

@@ -3,20 +3,17 @@
   .row
     .col-sm-6
       .field
-        = f.label :youtube_id
+        %label youtube_id
         = f.text_field :youtube_id
       .field
-        = f.label :name
+        %label Title (name)
         = f.text_field :name
-      -# .input-group
-      -#   = f.label :premium_tier
-      -#   = f.number_field :premium_tier
-      -# .input-group
-      -#   = f.check_box :is_trash
-      -#   = f.label :is_trash
-      -# .field
-      -#   %label Lead
-      -#   = f.select :lead_id, options_for_select(@leads_list, selected: video.lead_id), {}, class: :select2
+      .field
+        %label Lead
+        = f.select :lead_id, options_for_select(@leads_list, selected: video.lead_id), {}, class: :select2
+      .field
+        %label Tags
+        = f.select :tag_ids, options_for_select(@tags_list, selected: video.tag_ids), {  }, { class: :select2, multiple: 'multiple' }
     .col-sm-6
       .field
         = f.label :video
@@ -30,9 +27,8 @@
 
   .row
     .col-md-6
-      .field
-        = f.label :descr
-        = f.text_area :descr, class: :tinymce
+      %label descr
+      = f.text_area :descr, class: :tinymce
 
 
   .action

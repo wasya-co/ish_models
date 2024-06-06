@@ -1,0 +1,31 @@
+
+%table.bordered.tags--index.data-table
+  %thead
+    %tr
+      %td &nbsp;
+      %td N Conv
+      %td N Stubs
+
+      %td N Headlines
+
+      %td N Galleries
+      %td N Reports
+      %td N Videos
+
+      %td N Leads
+
+      %td N Logs
+  %tbody
+    - tags.each do |tag|
+      %tr
+        %td
+          = link_to '[~]', edit_tag_path(tag)
+          = link_to tag.slug, tag_path(tag)
+        %td= tag.conversations.length
+        %td= tag.message_stubs.length
+        %td= tag.headlines.length
+        %td= tag.galleries.length
+        %td= tag.reports.length
+        %td= tag.videos.length
+        %td= tag.leads.length
+        %td= tag.logs.length

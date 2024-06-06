@@ -1,9 +1,9 @@
 
-.tags-index.maxwidth
+.tags-index.padded
   .header
     %h5.title Tags (#{@tags.length})
 
-  = render 'index', tags: @tags
+  = render 'index_table', tags: @tags
 
   %hr
 

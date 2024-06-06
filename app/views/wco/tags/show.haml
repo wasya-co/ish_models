@@ -16,15 +16,15 @@
 
     %li.d-flex
       <b>Galleries (#{@galleries.length}):&nbsp;</b>
-      = render 'wco/galleries/index', galleries: @galleries, config: { skip_tags: true }
+      = render '/wco/galleries/index', galleries: @galleries, config: { skip_tags: true }
     %li.d-flex
       <b>Headlines (#{@tag.headlines.length}):&nbsp;</b>
       = render '/wco/headlines/index', headlines: @tag.headlines
 
     %li.d-flex
       <b>Leads (#{@tag.leads.length}):&nbsp;</b>
-      = render 'wco/leads/list', leads: @tag.leads
+      = render '/wco/leads/index', leads: @tag.leads
 
     %li.d-flex
       <b>Reports (#{@reports.length}):&nbsp;</b>
-      = render 'wco/reports/index', reports: @reports, config: { skip_tags: true }
+      = render '/wco/reports/index', reports: @reports, config: { skip_tags: true }

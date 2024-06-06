@@ -6,7 +6,8 @@ class Wco::ScrapeWsj
   def initialize site: nil, max_count: 2
     site ||= Wco::Site.find_by slug: 'wsj'
 
-    out = HTTParty.get( site.origin ).response.body
+    # out = HTTParty.get( site.origin ).response.body
+    # out = `curl #{site.origin}`
     out = Nokogiri::HTML(out)
     out.css('h3').each_with_index do |headline, idx|
       if idx < max_count
@@ -23,6 +24,7 @@ class Wco::ScrapeWsj
         end
       end
     end
+
   end
 
 end

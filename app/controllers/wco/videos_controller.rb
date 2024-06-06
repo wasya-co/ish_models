@@ -1,7 +1,7 @@
 
 class Wco::VideosController < Wco::ApplicationController
 
-  # before_action :set_lists
+  before_action :set_lists
 
   # Alphabetized : )
 
@@ -46,9 +46,7 @@ class Wco::VideosController < Wco::ApplicationController
     @videos = @videos.page( params[:videos_page] ).per( 9 )
 
     respond_to do |format|
-      format.html do
-        render '_index'
-      end
+      format.html
       format.json do
         render :json => @videos
       end
@@ -98,9 +96,20 @@ class Wco::VideosController < Wco::ApplicationController
       flash[:notice] = 'Success.'
       redirect_to video_path(@video)
     else
-      flash[:alert] = "No luck: #{@video.errors.full_messages.joing(', ')}"
+      flash[:alert] = "No luck: #{@video.errors.full_messages.join(', ')}"
       render :edit
     end
+  end
+
+  ##
+  ## private
+  ##
+  private
+
+  def set_lists
+    super
+    @leads_list = Wco::Lead.list
+    @tags_list  = Wco::Tag.list
   end
 
 end

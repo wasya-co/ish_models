@@ -16,12 +16,14 @@ $enable-important-utilities: false;
 
 
 /* A */
+
 .application--main-header.development {
   background: url('//wasyaco.com/wp-content/uploads/2024/02/weather-bg-development.png'),
     linear-gradient(90deg, pink, rgba(255,255,255,0) 5% );
 }
 
 /* B */
+
 .bold {
   font-weight: bold;
 }
@@ -29,6 +31,23 @@ $enable-important-utilities: false;
   border-bottom: 1px solid grey !important;
 }
 
+/* F */
+
+.field {
+  display: flex;
+  margin-bottom: 0.5em;
+
+  input {
+    flex-grow: 1;
+  }
+
+  label {
+    margin-right: 0.5em;
+    min-width: 100px;
+  }
+}
+
+/* M */
 
 .main-footer {
   border-top: 2px solid #6395b9;
@@ -46,9 +65,13 @@ $enable-important-utilities: false;
   }
 }
 
+/* S */
+
 .select2 {
   min-width: 200px;
 }
+
+/* T */
 
 td.tags {
   min-width: 200px;

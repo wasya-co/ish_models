@@ -6,8 +6,8 @@
     <b>By</b>
     = link_to item.profile.name, edit_profile_path( item.profile )
 
-  -# - if item.tags.length > 0
-  -#   <b>Tags:</b> #{ item.tags.map(&:name).join(', ') }
+  - if item.tags.length > 0
+    <b>Tags:</b> #{ item.tags.map(&:slug).join(', ') }
 
   - if defined?(item.premium_tier) && item.premium_tier > 0
     <b>Tier $#{item.premium_tier}</b>

@@ -61,8 +61,8 @@ class Wco::Lead
   has_and_belongs_to_many :email_campaigns,         class_name: '::WcoEmail::Campaign'
   has_and_belongs_to_many :tags,                    class_name: '::Wco::Tag', index: true
 
-  # has_many :galleries, class_name: 'Wco::Gallery'
-  # has_many :videos, class_name: 'Wco::Video'
+  has_many :galleries, class_name: 'Wco::Gallery'
+  has_many :videos,    class_name: 'Wco::Video'
 
   OP_DELETE          = 'delete'
   OP_ADD_TO_CAMPAIGN = 'add_to_campaign'

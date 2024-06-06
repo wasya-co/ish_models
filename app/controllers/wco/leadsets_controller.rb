@@ -60,7 +60,7 @@ class Wco::LeadsetsController < Wco::ApplicationController
       @email_contexts[lead.email] = lead.email_contexts
     end
 
-    @leads     = @leadset.leads.page( params[:leads_page] ).per( current_profile.per_page )
+    @leads         = @leadset.leads.page( params[:leads_page] ).per( current_profile.per_page )
     @subscriptions = @leadset.subscriptions
     @invoices      = @leadset.invoices
   end

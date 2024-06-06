@@ -26,7 +26,7 @@
       .col-md-4
         &nbsp;
       .col-md-8
-        .field
+        .a
           %label Next Office Action Templates
           .eg rand(1..5).business_days.from_now.to_date + rand(8..16).hours + rand(1..59).minutes
           .eg This is not an interval! But you can do Time.now + 30.seconds
@@ -36,7 +36,7 @@
             .flex-row.field
               %label next_at_exe
               = next_f.text_field :next_at_exe, class: 'flex-grow w-100'
-            .flex-row.field
+            .flex-row
               %label to_delete
               = next_f.check_box :to_delete
               = next_f.select :next_office_action_template_id, options_for_select( @oats_list, selected: next_f.object.next_office_action_template_id ), { }, { class: 'select2' }
