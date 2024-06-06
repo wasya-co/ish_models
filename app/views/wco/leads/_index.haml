@@ -5,12 +5,3 @@
       = image_tag lead.photo.photo.url(:thumb) if lead.photo
       = link_to lead, lead_path(lead)
       = link_to '[~]', edit_lead_path(lead)
-
-      -# \(#{lead.scheduled_email_actions.length} sch
-      -# %span.expand-next [+]
-      -# .expand-hide= render 'ish_manager/scheduled_actions/form_mini'
-      -# \)
-
-      - if defined?( wco_email )
-        %span.expand-next [reply]
-        .expand-hide= render '/wco_email/contexts/form_reply_mini', lead: lead
