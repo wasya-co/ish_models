@@ -12,6 +12,7 @@ class Wco::Lead
   field :name
   field :phone
   field :address
+  field :comment
 
   belongs_to :leadset, class_name: 'Wco::Leadset'
   before_validation :set_leadset, on: :create

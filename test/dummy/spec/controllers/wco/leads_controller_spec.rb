@@ -53,15 +53,20 @@ RSpec::describe Wco::LeadsController do
     response.code.should eql '200'
   end
 
-  it '#update' do
+  it '#update: email, address, comment' do
     @z = create(:lead,
       email:  'z@z.com',
     )
     patch :update, params: { id: @z.id, lead: {
+      address: 'some-addy',
+      comment: 'abba zz',
       email: 'a@a.com',
       tag_ids: [ '' ],
     } }
-    Wco::Lead.find( @z.id ).email.should eql 'a@a.com'
+    out = Wco::Lead.find( @z.id )
+    out.email.should eql 'a@a.com'
+    out.address.should eql 'some-addy'
+    out.comment.should eql 'abba zz'
   end
 
 end

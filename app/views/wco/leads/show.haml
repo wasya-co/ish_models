@@ -20,8 +20,10 @@
           %li Phone: #{@lead.phone}
         - if @lead.address
           %li Address: #{@lead.address}
-        -# - if @lead.comment
-        -#   %li Comment: #{raw @lead.comment}
+        - if @lead.comment
+          %li
+            Comment:
+            %pre.descr #{raw @lead.comment}
 
     .col-md-6
       - if @lead.photo
