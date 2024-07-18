@@ -25,7 +25,9 @@ class WcoEmail::EmailFilter
 
   has_many :email_filter_conditions
   has_many :email_filter_skip_conditions, class_name: 'WcoEmail::EmailFilterCondition'
+
   has_and_belongs_to_many :action_tmpls, class_name: 'Wco::OfficeActionTemplate'
+  has_and_belongs_to_many :leadsets,     class_name: 'Wco::Leadset'
 
   belongs_to :tag, class_name: 'Wco::Tag', inverse_of: :email_filters, optional: true
 

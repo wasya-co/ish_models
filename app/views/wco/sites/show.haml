@@ -9,8 +9,8 @@
     = render '/wco/tags/index', tags: @site.tags
 
   %h5.d-flex
-    Sitemap Paths&nbsp;
-    = link_to '[+]', new_sitemap_path_path( site_id: @site.id )
+    Sitemap Paths &nbsp;
+    = link_to '[+]', new_spath_path( site_id: @site.id )
     &nbsp;
     = button_to 'check', check_sitemap_path( site: @site ), data: { confirm: 'Are you sure?' }
   = render '/wco/sitemap_paths/form', spath: @new_sitemap_path

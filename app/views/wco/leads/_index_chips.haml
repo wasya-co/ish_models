@@ -1,0 +1,5 @@
+
+.Leads.mb-2
+  .d-inline <b>Leads:</b>
+  - leads.each do |lead|
+    .Chip= link_to lead.email, wco.lead_path( lead )

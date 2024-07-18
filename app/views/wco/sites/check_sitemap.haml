@@ -1,0 +1,15 @@
+
+.sites-check-sitemap.padded
+  .header
+    %h3.title Checked sitemap
+
+  %ul
+    %li
+      Total count: #{@total_count}
+    %li
+      Error count: #{@error_count}
+
+  %ul
+    - @results.each do |r|
+      %li= r
+

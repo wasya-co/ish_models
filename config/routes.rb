@@ -41,7 +41,8 @@ Wco::Engine.routes.draw do
 
   resources :obfuscated_redirects
 
-  post 'office_action_templates', to: 'office_action_templates#update'
+  post 'office_action_templates',         to: 'office_action_templates#update'
+  post 'office_action_templates/perform', to: 'office_action_templates#perform', as: :office_action_templates_perform
   resources :office_action_templates
   resources :office_actions
 
@@ -61,7 +62,7 @@ Wco::Engine.routes.draw do
 
   post 'sites/:id/check_sitemap', to: 'sites#check_sitemap', as: :check_sitemap
   resources :sites
-  resources :sitemap_paths
+  resources :sitemap_paths, as: :spaths
   resources :subscriptions
 
   delete 'tags/remove/:id/from/:resource/:resource_id', to: 'tags#remove_from', as: :remove_tag_from

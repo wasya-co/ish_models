@@ -22,6 +22,14 @@ class Wco::OfficeActionTemplatesController < Wco::ApplicationController
     authorize! :new, @oat
   end
 
+  def perform
+    @oat = OAT.find params[:id]
+    authorize! :run, @oat
+    @conversations = WcoEmail::Conversation.find( params[:conversation_ids] )
+    out = eval( @oat.action_exe )
+    flash_notice out
+  end
+
   def show
     @oat = OAT.find params[:id]
     authorize! :show, @oat

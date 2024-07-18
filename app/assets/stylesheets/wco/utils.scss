@@ -194,6 +194,10 @@ textarea.monospace {
 
 /* R */
 
+.red {
+  color: red;
+}
+
 label.required {
   &:after {
     content: ' *';

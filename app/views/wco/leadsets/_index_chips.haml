@@ -1,0 +1,5 @@
+
+.Leadsets.mb-2
+  .d-inline <b>Leadsets:</b>
+  - leadsets.each do |ls|
+    .Chip= link_to ls.company_url, wco.leadset_path( ls )

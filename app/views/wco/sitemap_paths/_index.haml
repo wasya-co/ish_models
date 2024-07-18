@@ -3,13 +3,19 @@
   %table.bordered.data-table
     %thead
       %td Path
-      %td Redirect To
-      %td Selector
+      -# %td Redirect To
+      -# %td Selector
       %td Status
     %tbody
       - spaths.each do |spath|
         %tr
-          %td= spath.path
-          %td= spath.redirect_to
-          %td= spath.selector
+          %td
+            = link_to '[~]', edit_spath_path(spath)
+            = spath.path
+            - if spath.redirect_to
+              %div
+                \-> &nbsp;
+                = spath.redirect_to
+            - if spath.selector
+              .green.ml-5= spath.selector
           %td= spath.status

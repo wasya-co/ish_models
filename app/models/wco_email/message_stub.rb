@@ -88,6 +88,10 @@ class WcoEmail::MessageStub
     ## Leadset, Lead
     from      = the_mail.from ? the_mail.from[0] : "nobody@unknown-doma.in"
     lead      = Wco::Lead.find_or_create_by_email( from )
+    conv.leads.push lead
+    leadset   = Wco::Leadset.from_email from
+    conv.leadsets.push leadset
+    # conv.save
 
     message   = WcoEmail::Message.unscoped.where( message_id: message_id ).first
     if message
@@ -149,9 +153,6 @@ class WcoEmail::MessageStub
     if !@message.save
       puts! @message.errors.full_messages.join(", "), "Could not save @message"
     end
-
-    conv.leads.push lead
-    conv.save
 
     the_mail.cc&.each do |cc|
       Wco::Lead.find_or_create_by_email( cc )

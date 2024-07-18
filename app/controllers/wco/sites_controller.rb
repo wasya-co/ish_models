@@ -4,8 +4,11 @@ class Wco::SitesController < Wco::ApplicationController
   def check_sitemap
     @site = Wco::Site.find params[:id]
     authorize! :check_sitemap, @site
-    @site.check_sitemap
-    redirect_to request.referrer
+    out          = @site.check_sitemap
+    @results     = out[:results]
+    @total_count = out[:total_count]
+    @error_count = out[:error_count]
+    # redirect_to request.referrer
   end
 
   def create

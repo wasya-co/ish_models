@@ -4,7 +4,10 @@
     %thead
       %th.select-all.nosort
         = render '/wco/select_all'
-      %th.leads leads
+      %th.leads
+        leadsets
+        %span.red /
+        leads
       %th.subject subject, preview
       %th.tags Tags
       %th.latest-at latest_at
@@ -15,11 +18,13 @@
             .gray= idx+1
             = check_box_tag 'conversation_ids[]', conv.id.to_s, nil, { class: 'i-sel' }
           %td.leads.mini
-            -# - conv.from_emails.each do |from|
-            -#   = link_to from, wco.lead_path( from )
-            -# %hr
-            - conv.leads.each do |lead|
-              = link_to lead.email, wco.lead_path( lead )
+            %ul.m-0.p-0
+              - conv.leadsets.each do |ls|
+                %li= ls.company_url
+            %hr
+            %ul.m-0.p-0
+              - conv.leads.each do |lead|
+                %li= link_to lead.email, wco.lead_path( lead )
           %td.subject
             - if conv.unread?
               <b>#{link_to conv.subject, wco_email.conversation_path(conv)}</b>

@@ -12,6 +12,20 @@ class Wco::Leadset
   def normalize_company_url
     company_url.downcase!
   end
+  def domain; company_url; end # for anti-spam
+  def self.from_email email
+    _domain = email.split('@')[1]
+    words = _domain.split('.')
+    if %w| com net gov org |.include?( words[-2] )
+      words = words[-3, 3]
+    else
+      words = words[-2, 2]
+    end
+    _domain = words.join('.')
+    find_or_create_by( company_url: _domain )
+  end
+
+
 
   field :email
   index({ email: 1 }, { name: 'email' })
@@ -20,6 +34,7 @@ class Wco::Leadset
 
   has_many :appliances,    class_name: '::WcoHosting::Appliance',   inverse_of: :leadset
   has_many :appliance_tmpl_prices, class_name: 'Wco::Price'
+
   has_many :environments,  class_name: '::WcoHosting::Environment', inverse_of: :leadset
   has_many :invoices,      class_name: 'Wco::Invoice'
   has_many :leads,         class_name: 'Wco::Lead'
@@ -27,7 +42,10 @@ class Wco::Leadset
 
   has_many :profiles,      class_name: 'Wco::Profile',              inverse_of: :leadset
   has_many :subscriptions, class_name: 'Wco::Subscription',         inverse_of: :leadset
-  has_and_belongs_to_many :tags, class_name: 'Wco::Tag'
+  has_and_belongs_to_many :conversations, class_name: '::WcoEmail::Conversation', index: true
+  def convs; conversations; end
+  has_and_belongs_to_many :tags,          class_name: 'Wco::Tag'
+  has_and_belongs_to_many :email_filters, class_name: 'WcoEmail::EmailFilter'
 
 
   field :next_invoice_number, type: :integer, default: 100

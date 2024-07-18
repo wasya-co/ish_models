@@ -1,6 +1,11 @@
 
+- if spath.new_record?
+  - url = spaths_path
+- else
+  - url = spath_path(spath)
+
 .sitemap-paths--form
-  = form_for spath do |f|
+  = form_for spath, url: url do |f|
     = hidden_field_tag :site_id, spath[:site_id] || params[:site_id]
 
     .d-flex
