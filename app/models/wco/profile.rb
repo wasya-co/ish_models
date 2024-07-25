@@ -9,7 +9,13 @@ class Wco::Profile
   index({ email: 1 }, { name: 'email' })
   validates :email, presence: true, uniqueness: true
 
+
   field :per_page, type: :integer, default: 25
+
+  field :schwab_access_token,  type: :string
+  field :schwab_refresh_token, type: :string
+  field :schwab_id_token,      type: :string
+
   field :show_n_thumbs, type: :integer, default: 8
 
   has_many :reports, class_name: 'Wco::Report'
