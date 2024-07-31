@@ -77,7 +77,8 @@ class WcoEmail::ApplicationMailer < ActionMailer::Base
     mail( from:    @ctx.from_email,
           to:      @ctx.to_email,
           cc:      @ctx.cc,
-          bcc:     "poxlovibb1@gmail.com",
+          ## 2024-07-30 I'm no longer sending these to google.
+          # bcc:     "poxlovibb1@gmail.com",
           subject: rendered_subject,
           body:    rendered_str,
           content_type: "text/html" )

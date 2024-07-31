@@ -221,11 +221,12 @@ class WcoEmail::MessageStub
     if config['skip_notification']
       ;
     else
-      conv = WcoEmail::Conversation.find( conv.id )
-      if conv.tags.include? Wco::Tag.inbox
-        out = WcoEmail::ApplicationMailer.forwarder_notify( @message.id.to_s )
-        Rails.env.production? ? out.deliver_later : out.deliver_now
-      end
+      ## 2024-07-30 I'm no longer sending these to google.
+      # conv = WcoEmail::Conversation.find( conv.id )
+      # if conv.tags.include? Wco::Tag.inbox
+      #   out = WcoEmail::ApplicationMailer.forwarder_notify( @message.id.to_s )
+      #   Rails.env.production? ? out.deliver_later : out.deliver_now
+      # end
     end
 
     puts 'ok'
