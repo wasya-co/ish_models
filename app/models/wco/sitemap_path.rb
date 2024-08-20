@@ -47,9 +47,9 @@ class Wco::SitemapPath
       end
 
     elsif self[:redirect_to]
-      out = HTTParty.get( "#{origin}#{self[:path]}", follow_redirects: false )
+      out = HTTParty.get( "#{site.origin}#{self[:path]}", follow_redirects: false )
       if( out.headers[:location] == self[:redirect_to] ||
-          out.headers[:location] == "#{origin}#{self[:redirect_to]}" )
+          out.headers[:location] == "#{site.origin}#{self[:redirect_to]}" )
         results.push "OK #{self[:path]}"
         self.status = 'OK'
       else
@@ -69,7 +69,7 @@ class Wco::SitemapPath
 
     if self[:selectors].present?
       self[:selectors].each do |selector|
-        body = HTTParty.get( "#{origin}#{self[:path]}" ).body
+        body = HTTParty.get( "#{site.origin}#{self[:path]}" ).body
         doc = Nokogiri::HTML( body )
         out = doc.search selector
         if out.present?
