@@ -31,8 +31,11 @@ class Wco::Site
   field :username
   field :password
 
+  default_scope ->{ order_by( slug: :asc ) }
+
   def to_s
-    origin
+    slug
+    # origin
   end
 
   def self.list

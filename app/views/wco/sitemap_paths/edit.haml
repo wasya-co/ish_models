@@ -1,5 +1,6 @@
 
 .sitemap-paths-edit.maxwidth
   .header
-    %h3.title Edit spath
+    %h3.title
+      Edit Spath for `#{link_to @site, site_path(@site)}`
   = render 'form', spath: @spath

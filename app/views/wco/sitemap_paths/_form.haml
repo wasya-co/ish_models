@@ -5,8 +5,8 @@
   - url = spath_path(spath)
 
 .sitemap-paths--form
-  = form_for spath, url: url do |f|
-    = hidden_field_tag :site_id, spath[:site_id] || params[:site_id]
+  = form_for spath, url: url, as: :spath do |f|
+    = hidden_field_tag 'spath[site_id]', spath[:site_id] || params[:site_id]
 
     .d-flex
       .field

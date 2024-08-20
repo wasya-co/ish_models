@@ -5,14 +5,18 @@
       %h5.title
         = @site
 
-    = render '/wco/tags/header'
-    = render '/wco/tags/index', tags: @site.tags
+  .row
+    .Sitemaps.col-md-9
 
-  %h5.d-flex
-    Sitemap Paths &nbsp;
-    = link_to '[+]', new_spath_path( site_id: @site.id )
-    &nbsp;
-    = button_to 'check', check_sitemap_path( site: @site ), data: { confirm: 'Are you sure?' }
-  = render '/wco/sitemap_paths/form', spath: @new_sitemap_path
-  -# %hr
-  = render '/wco/sitemap_paths/index', spaths: @site.sitemap_paths
+      %h5.d-flex
+        Sitemap Paths &nbsp;
+        = link_to '[+]', new_spath_path( site_id: @site.id )
+        &nbsp;
+        = button_to 'check', check_sitemap_path( site: @site ), data: { confirm: 'Are you sure?' }
+
+      -# %hr
+      = render '/wco/sitemap_paths/index', spaths: @site.sitemap_paths
+
+    .col-md-3
+      = render '/wco/tags/header'
+      = render '/wco/tags/index', tags: @site.tags
