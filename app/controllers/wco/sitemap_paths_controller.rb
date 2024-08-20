@@ -34,7 +34,7 @@ class Wco::SitemapPathsController < Wco::ApplicationController
   def update
     @spath = Wco::SitemapPath.find params[:id]
     authorize! :update, @spath
-    flag = @spath.update params[:sitemap_path].permit!
+    flag = @spath.update params[:spath].permit!
     if flag
       flash_notice 'Success'
       redirect_to site_path(@spath.site)
