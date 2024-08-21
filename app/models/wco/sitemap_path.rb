@@ -20,7 +20,7 @@ class Wco::SitemapPath
 
   def check
     self.status = 'NOT_OK'
-    if self[:selector]
+    if self[:selector].present?
       begin
         body = HTTParty.get( "#{site.origin}#{self[:path]}" ).body
       rescue OpenSSL::SSL::SSLError => err
@@ -46,7 +46,7 @@ class Wco::SitemapPath
         end
       end
 
-    elsif self[:redirect_to]
+    elsif self[:redirect_to].present?
       out = HTTParty.get( "#{site.origin}#{self[:path]}", follow_redirects: false )
       if( out.headers[:location] == self[:redirect_to] ||
           out.headers[:location] == "#{site.origin}#{self[:redirect_to]}" )
