@@ -1,11 +1,12 @@
 
+- config ||= {}
 
 -# <b>Tags (#{tags.length}):</b>
 -# - cache cache_key do
-.Tags.chips.mb-2
+.Tags.chips.mb-2.d-inline-block
   - tags.each do |tag|
     .Chip{ data: { tag: { id: tag.id.to_s } } }
-      - if !config&.without_checkbox
+      - unless config[:skip_checkbox]
         = check_box_tag 'tag_ids[]', tag.id
       = link_to tag.slug, wco.tag_path( tag )
       - if defined? resource
