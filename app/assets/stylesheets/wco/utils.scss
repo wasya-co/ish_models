@@ -90,7 +90,9 @@ textarea.monospace {
 
 /* F */
 
-
+.flex-grow {
+  flex-grow: 1;
+}
 .flex-row {
   display: flex;
 }

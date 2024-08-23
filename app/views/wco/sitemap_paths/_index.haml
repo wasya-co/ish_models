@@ -19,4 +19,7 @@
                 = spath.redirect_to
             - if spath.selector
               .green.ml-5= spath.selector
+              .green.ml-5= spath.selectors
+              .green.ml-5 Title: #{spath.title}
+              .green.ml-5 meta-descr: #{spath.meta_description}
           %td= spath.status

@@ -1,15 +1,25 @@
 
 class Wco::SitemapPathsController < Wco::ApplicationController
 
+  before_action :fix_params, only: [ :create, :update ]
+
   def check
     @spath = Wco::SitemapPath.find params[:id]
     authorize! :check, @spath
     @spath.check
   end
 
+  def clear
+    @spath = Wco::SitemapPath.find params[:id]
+    authorize! :clear, @spath
+    @spath.update_attributes({ results: [] })
+    redirect_to request.referrer || sites_path(@spath.site)
+  end
+
   def create
     authorize! :create, Wco::SitemapPath
     @spath = Wco::SitemapPath.new params[:spath].permit!
+
     if @spath.save
       flash_notice 'Success.'
       redirect_to wco.site_path(params[:spath][:site_id])
@@ -31,6 +41,14 @@ class Wco::SitemapPathsController < Wco::ApplicationController
     authorize! :new, @spath
   end
 
+  def show
+    @spath = Wco::SitemapPath.find params[:id]
+    @site = @spath.site
+    authorize! :show, @spath
+    render 'check'
+  end
+
+
   def update
     @spath = Wco::SitemapPath.find params[:id]
     authorize! :update, @spath
@@ -43,6 +61,19 @@ class Wco::SitemapPathsController < Wco::ApplicationController
       render action: 'edit'
     end
 
+  end
+
+  ##
+  ## private
+  ##
+  private
+
+  def fix_params
+    if params[:spath][:selectors].present?
+      params[:spath][:selectors] =  params[:spath][:selectors].split(',').strip
+    else
+      params[:spath][:selectors] = []
+    end
   end
 
 

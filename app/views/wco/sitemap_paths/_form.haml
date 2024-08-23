@@ -8,16 +8,24 @@
   = form_for spath, url: url, as: :spath do |f|
     = hidden_field_tag 'spath[site_id]', spath[:site_id] || params[:site_id]
 
-    .d-flex
-      .field
-        %label Path
-        = f.text_field :path
-      .field
-        %label redirect_to
-        = f.text_field :redirect_to
-      .field
-        %label selector
-        = f.text_field :selector
+    .field.d-flex
+      %label Path
+      = f.text_field :path, class: [ 'flex-grow' ]
+    .field.d-flex
+      %label redirect_to
+      = f.text_field :redirect_to, class: [ 'flex-grow' ]
+      %label selector
+      = f.text_field :selector, class: [ 'flex-grow' ]
+    %br
+    .field.d-flex
+      %label selectors (.a, .b , #c)
+      = f.text_field :selectors, value: spath.selectors.join(','), class: [ 'flex-grow' ]
+    .field.d-flex
+      %label meta_description
+      = f.text_field :meta_description, class: [ 'flex-grow' ]
+    .field.d-flex
+      %label title
+      = f.text_field :title, class: [ 'flex-grow' ]
 
-      .actions
-        = f.submit 'Go'
+    .actions
+      = f.submit 'Go'
