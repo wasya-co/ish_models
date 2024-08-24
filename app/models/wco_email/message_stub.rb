@@ -23,7 +23,7 @@ class WcoEmail::MessageStub
   field :status, default: STATUS_PENDING
   scope :pending, ->{ where( status: STATUS_PENDING ) }
 
-  field     :bucket # 'ish-ses', 'ish-ses-2024'
+  field     :bucket # 'ish-ses' (current), 'ish-ses-2024'
 
   field     :object_key
   validates :object_key, presence: true, uniqueness: true
