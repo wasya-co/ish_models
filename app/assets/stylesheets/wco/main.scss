@@ -166,6 +166,13 @@ textarea.monospace {
   margin: auto;
 }
 
+.main-header {
+  .active,
+  ._ {
+    border-bottom: 2px solid red;
+  }
+}
+
 .mini {
   font-size: 0.75em;
 }

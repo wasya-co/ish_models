@@ -71,7 +71,8 @@ class WcoEmail::ApplicationMailer < ActionMailer::Base
 
     @ctx.update({
       rendered_str: rendered_str,
-      subject: rendered_subject,
+      sent_at:      Time.now,
+      subject:      rendered_subject,
     })
 
     mail( from:    @ctx.from_email,
