@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    wco_models (3.1.0.181)
+    wco_models (3.1.0.182)
       ahoy_matey
       aws-sdk-s3
       business_time

@@ -2,7 +2,7 @@
 
 class WcoEmail::ApplicationMailer < ActionMailer::Base
 
-  default from: 'WasyaCo Consulting <no-reply@wco.com.de>'
+  default from: 'WasyaCo Consulting <no-reply@wasya.co>'
   helper(Wco::ApplicationHelper)
 
   layout 'mailer'
