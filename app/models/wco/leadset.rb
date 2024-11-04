@@ -65,12 +65,10 @@ class Wco::Leadset
     if self[:customer_id].blank?
       return nil if !email.present?
       existing = Stripe::Customer.search({ query: "email: '#{email}'" })
-      # puts! existing, 'existing'
       if existing.data.present?
         update_attributes( customer_id: existing.data[0][:id] )
       else
         customer = Stripe::Customer.create({ email: email })
-        # puts! customer, 'customer'
         update_attributes( customer_id: customer[:id] )
       end
     end
