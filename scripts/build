@@ -3,7 +3,7 @@
 set -ex
 
 ./scripts/version_bump
-version=`cat VERSION`
+export version=`cat VERSION`
 cat wco_models.gemspec-template | \
   sed -e "s/\$version/$version/g" > wco_models.gemspec
 
