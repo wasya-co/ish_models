@@ -5,6 +5,7 @@ gemspec
 
 gem 'ahoy_matey'
 gem 'exception_notification', "~> 4.5.0"
+gem 'ffi', '~> 1.16.3'
 gem 'omniauth',                       '~> 2.1.1'
 gem "omniauth-keycloak",              "~> 1.5.1"
 gem "omniauth-rails_csrf_protection", "~> 1.0.1"
