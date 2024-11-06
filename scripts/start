@@ -1,0 +1,13 @@
+#!/bin/bash
+
+##
+## warning: no gmail creds!
+##
+
+set -ex
+
+./scripts/kill_rails
+RAILS_ENV=dev2 \
+  bundle exec rails server --port 3001
+
+

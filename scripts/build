@@ -3,9 +3,9 @@
 set -ex
 
 ./scripts/version_bump
-export version=`cat VERSION`
-cat wco_models.gemspec-template | \
-  sed -e "s/\$version/$version/g" > wco_models.gemspec
+version=`cat VERSION`
+cat wco_email.gemspec-template | \
+  sed -e "s/\$version/$version/g" > wco_email.gemspec
 
 bundle
 
@@ -13,9 +13,9 @@ git add .
 git commit -m 'autobuild `date "+%Y%m%d"`'
 git push
 
-gem build wco_models.gemspec
-gem push wco_models-$version.gem
+gem build wco_email.gemspec
+gem push wco_email-$version.gem
 
-rm wco_models-`cat VERSION`.gem
+rm wco_email-`cat VERSION`.gem
 
-echo "wco_models build ok"
+echo "wco_email build ok"

@@ -1,0 +1,13 @@
+#!/bin/bash
+
+set -e # error
+# set -x # verbose
+
+pid=`lsof -i:3004|grep ruby|tr -s ' ' | cut -f 2 -d\ |head -n1`
+if [ -z "$pid" ]
+then
+  echo 'The server was not running.'
+else
+  sudo kill -9 $pid
+fi
+

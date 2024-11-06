@@ -1,0 +1,41 @@
+version: '3.2'
+
+services:
+
+  localstack_development:
+    image: localstack/localstack:3.7.0
+    # container_name: localstack_development
+    environment:
+      - SERVICES=s3:5002
+      - DEFAULT_REGION=us-east-1
+      - DATA_DIR=/opt/localstack/data
+    ports:
+      - 4566:4566 # LocalStack Gateway
+      - "127.0.0.1:4510-4559:4510-4559"  # external services port range
+    volumes:
+      - type: bind
+        source: ./volumes/localstack_development_data
+        target: /var/lib/localstack
+      - type: bind
+        source: ./tmp
+        target: /opt/tmp
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - ./aws:/etc/localstack/init/ready.d
+    # environment:
+      ## LocalStack configuration: https://docs.localstack.cloud/references/configuration/
+      # - DEBUG=${DEBUG:-0}
+    restart: always
+
+  mongo_development:
+    image: mongodb/mongodb-community-server:5.0.7-ubuntu2004
+    ports:
+      - 27041:27017
+    volumes:
+      - type: bind
+        source: ./volumes/mongo_development_data
+        target: /data/db
+    restart: always
+
+
+
+

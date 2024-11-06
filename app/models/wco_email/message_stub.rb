@@ -42,16 +42,13 @@ class WcoEmail::MessageStub
   AOL
 
   def do_process
-    @client ||= Aws::S3::Client.new({
-      region:            ::S3_CREDENTIALS[:region_ses],
-      access_key_id:     ::S3_CREDENTIALS[:access_key_id_ses],
-      secret_access_key: ::S3_CREDENTIALS[:secret_access_key_ses],
-    })
+    @client ||= Aws::S3::Client.new(::SES_S3_CREDENTIALS)
     stub = self
 
     raw      = @client.get_object( bucket: stub.bucket, key: stub.object_key ).body.read
     raw      = raw.encode('utf-8', invalid: :replace, undef: :replace, replace: '_' )
     the_mail = Mail.new( raw )
+    puts! the_mail, 'the_mail'
 
     message_id         = the_mail.header['message-id']&.decoded
     message_id       ||= "#{the_mail.date&.iso8601}::#{the_mail.from}"

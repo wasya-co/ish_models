@@ -1,0 +1,12 @@
+#!/bin/bash
+
+alias dc='docker-compose '
+
+mkdir -p ./volumes/localstack_development_data
+mkdir -p ./volumes/mongo_development_data
+
+dc up -d mongo_development
+dc up -d localstack_development
+
+awslocal s3api create-bucket --bucket wco-email-development
+

@@ -1,0 +1,78 @@
+Authentication-Results: mailin021.protonmail.ch; dkim=pass (Good 1024 bit rsa-sha256 signature) header.d=phoenixwebgroup.co header.a=rsa-sha256
+Authentication-Results: mailin021.protonmail.ch; dmarc=none (p=none dis=none) header.from=phoenixwebgroup.co
+Authentication-Results: mailin021.protonmail.ch; spf=pass smtp.mailfrom=bounce+f8515a.044567-victor=wasya.co@phoenixwebgroup.co
+Authentication-Results: mailin021.protonmail.ch; dkim=pass (1024-bit key) header.d=phoenixwebgroup.co header.i=@phoenixwebgroup.co header.b="Ypi4dkJo"
+Content-Type: multipart/mixed; boundary=c5a1af3e95a7a0d003ddec6f73ed86fff620984deff48270c8c091fc5a2ce204
+Date: Mon, 18 Oct 2021 18:41:17 +0000
+Delivered-To: victor@wasya.co
+Dkim-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=phoenixwebgroup.co; q=dns/txt; s=k1; t=1634582518; h=References: Message-ID: Date: To: From: Subject: MIME-Version: Content-Type: Sender; bh=HcH02+4FMHPPQu/B21IGQzIEdy54/whNV8ph62SNSiI=; b=Ypi4dkJoUum0YWv0HNUO5XlzwbrzRq7eUK8dP5TlfpxEw7gFUudFMR45CK9IGHjgJK8kMubw ggxYxK4QqEmwBAgmIT2Yw/v09WsijBTycin8CBRqxw1MFkgKOiFBOiXP44ROOdCW0mqHqVkX 3fMbnwtdLlJcBzPtJVRx5ezZ40g=
+From: "Anand Pandey" <anand@phoenixwebgroup.co>
+Message-Id: <163458247658.26958.7775817848519493825@smtpgw.close.com>
+Mime-Version: 1.0
+Received: from z7.mailgun.us (z7.mailgun.us [104.130.96.7]) (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits) key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256) (No client certificate requested) by mailin021.protonmail.ch (Postfix) with ESMTPS id 4HY5Ly0T8qz3hhd3 for <victor@wasya.co>; Mon, 18 Oct 2021 18:41:45 +0000 (UTC)
+Received: from smtpgw.close.com (am11-natgw-b0.close.com [54.186.6.46]) by smtp-out-n04.prod.us-east-1.postgun.com with SMTP id 616dbfcd060523968921eca6 (version=TLS1.3, cipher=TLS_AES_128_GCM_SHA256); Mon, 18 Oct 2021 18:41:17 GMT
+References: <163458247658.26958.14443976080280482503@smtpgw.close.com> <pfuS0lLRgTkWpYZNfkbjlSqKThAK859yD34_okpdEohaGQQY0M2BwBTWxshqNjenhC4lIox_WkJKHfbP2GDrKw==@protonmail.internalid>
+Reply-To: "Anand Pandey" <anand@phoenixwebgroup.co>
+Return-Path: <bounce+f8515a.044567-victor=wasya.co@phoenixwebgroup.co>
+Sender: anand@phoenixwebgroup.co
+Subject: Who handles these contracts?
+To: "Victor Pudeyev" <victor@wasya.co>
+X-Closeio-Email-Id: acti_CgUGEdwIdUdHrYowQA1tbDGnEzXIXLYRSWKYomfRGJ3
+X-Mailgun-Sending-Ip: 104.130.96.7
+X-Mailgun-Sid: WyI5NGRjMCIsICJ2aWN0b3JAd2FzeWEuY28iLCAiMDQ0NTY3Il0=
+X-Original-To: victor@wasya.co
+X-Pm-Content-Encryption: on-delivery
+X-Pm-Conversationid-Id: cw6VgZI9ND1InryBKr0tkkqejMigzdYbjmiY3-ay5IHzn4_SfrshIgd0Qvhnxuy1rtG8EVWuhX_PQvbWGZ-NLg==
+X-Pm-Date: Mon, 18 Oct 2021 13:41:17 -0500
+X-Pm-External-Id: <163458247658.26958.7775817848519493825@smtpgw.close.com>
+X-Pm-Internal-Id: pfuS0lLRgTkWpYZNfkbjlSqKThAK859yD34_okpdEohaGQQY0M2BwBTWxshqNjenhC4lIox_WkJKHfbP2GDrKw==
+X-Pm-Origin: external
+X-Pm-Spam: 0yeiAIic37iBOIJChpR3Y2bi4AiOiuHVZb8miiACLWbfxNvc2imUcOBi7BJCIlQFR QiU1yiAONwygFRkIiV6II3IDsH0IIJCzklmcjIgoYxIjimRNZYm3yQGZTZlBhjODxDIOMYTwgIiY SfgwNhIngjoIeAyifNXa3chBI6bSsDAIIJCzy92YSZ6IAsIDyCJIZBXviQnciOiAAuLTSCBMQZ1E Ol0X0XT1lLUEIV9RMBiS6wkQEI2FJhZXg2UZcVmwhRXdGdvlAobipzIKX4GgwEzWCNx4AuMzuTYO NBys0NXaWZgQ4gaWu2wdbFWpwNHbWalt5lLmcF1db0iwgAjL1UGBBBX1g1MUUB1GzBiOWZk5IgZX 0WFbYh2lTBycEUgYVjcmk3JbX4Ggw4CMFIQN9IRlPUxRX50PgUkT1UGBBIOiPUxRIRGvgMXZmb09 B1IHpmxYcg2gg4WY1UGBJlIFy29YZxFuuADISNIB1MVEN0lXQdUFO90XFTflggMjEk9QWoTgNRFS DTgo1haWz2VZIdHpggGdjMwQ0yMCwDAOIJG5zVGdGIm94gXGy29dZNHcwAibjLgARNSFNF9TRNVT FdUQEIPJk6RFUEhITwUgj5WaHbkVQgZWgW4abVWznF2cVZuxAuLTESBMSl0NBZ1XETElFVX0lE1I cN3hgU2ZGazFEgIGsmFdaQWgJtERSTvBBEcizyBSadWu1RXYmcgUJvZnuVxbIFG1vhGdiczdRvIG pWFbbxluuADISMEBlNS0J1NXR50FNBCRXZzNdlYWhGhIcByhLREIUSg0Igb3gEsRcl2n0FmbXdlJ BuLCg3QbbVmjzNXZXYpJlcbH2iBbYxWpuxFZTLuABEMSN0lSXZ1BElETEIl1Nhc3g2UZaFGz0FGI GIlxN0YXuG9IZBS2pxWYCZEBlNS0yG9IIRELpNHI2Zh5VydHuVxZLATuEBSM0SNlZBX1EElTXV0G l1EI3chNUgZ2zGFaIEGgsFmdWagQtJREvSBTcBiEzBySWaudR1YXgmUcZJnvuxVbGIuVVsdml3Bb LZWyg02bGZt9luYWiG4XI0HgfQ==
+X-Pm-Spam-Action: dunno
+X-Pm-Spamscore: 0
+X-Pm-Transfer-Encryption: TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+
+
+--c5a1af3e95a7a0d003ddec6f73ed86fff620984deff48270c8c091fc5a2ce204
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset=utf-8
+
+<p dir=3D"ltr">Hi Victor,</p><p dir=3D"ltr">I am following up from Phoenix =
+Web Group (PWG) to share some additional information around some of the cha=
+llenges our customers faced taking their organization to in the future to g=
+et the software and applications they envisioned. &nbsp;</p><p dir=3D"ltr">=
+&nbsp;</p><p dir=3D"ltr"><strong><em>Municipalities</em></strong></p><p dir=
+=3D"ltr"><strong>The challenge&nbsp;</strong>- Municipalities and utility s=
+ervices have found that manual data collection can be time-consuming, subje=
+ct to error, and most importantly, expensive.</p><p dir=3D"ltr"><strong>Des=
+ired future state</strong> - &nbsp;Our client envisioned being able to util=
+ize multiple solutions that automate the meter reading retrieval process fo=
+r their customers.</p><p dir=3D"ltr"><strong>The solution</strong> -&nbsp;P=
+WG created flexible, comprehensive solutions consisting of a web-based data=
+ management, aggregation, &nbsp;and reporting solution which included integ=
+ration with multiple existing read capture and billing systems.</p><p dir=
+=3D"ltr">&nbsp;</p><p dir=3D"ltr"><strong><em>Agriculture/Natural Resource =
+District</em></strong></p><p dir=3D"ltr"><strong>The challenge&nbsp;</stron=
+g>- most of PWG=E2=80=99s NRD clients shared a similar problem =E2=80=93 re=
+lying on multiple antiquated databases resulting in extra work, inefficienc=
+ies, &nbsp;and inconsistencies.</p><p dir=3D"ltr"><strong>Desired future st=
+ate</strong> - the &nbsp;ability for NRD employees to conduct remote field =
+work, automatic report generation, and an online interface for producer inp=
+ut, as well as a scalable data management platform.</p><p dir=3D"ltr"><stro=
+ng>The solution</strong> - &nbsp;PWG devised a modular, customizable, web-b=
+ased system that collects, analyzes, and reports all readings from the fiel=
+d while acting as a single system of record for their resource management a=
+nd record keeping. &nbsp;</p><p dir=3D"ltr">Please let me know a few days/t=
+imes that work for a 15-minute call and I will reply with a calendar invite=
+.&nbsp;</p><p dir=3D"ltr">Thank you,</p><p dir=3D"ltr">Anand Pandey</p><p d=
+ir=3D"ltr">Business Growth Specialist</p><p dir=3D"ltr">+1-857-237-1476</p>=
+<p dir=3D"ltr"><a href=3D"mailto:anand@phoenixwebgroup.co?subject=3Dunsubsc=
+ribe&body=3Dunsubscribe" target=3D"_blank">Click here if you'd prefer not t=
+o receive further emails.</a></p><p dir=3D"ltr">IMPORTANT: The contents of =
+this email message and any attachments are intended solely for the addresse=
+e(s) and may contain confidential and/or privileged information and may be =
+legally protected from disclosure.</p><img src=3D"https://ml.closeml.com/t/=
+CgUGEdwIdUdHrYowQA1tbDGnEzXIXLYRSWKYomfRGJ3/ZbV3CXeBEV.png" alt=3D"" width=
+=3D"1" height=3D"1" />
+--c5a1af3e95a7a0d003ddec6f73ed86fff620984deff48270c8c091fc5a2ce204--

@@ -24,7 +24,7 @@ RSpec.describe WcoEmail::MessageStub do
         expect_any_instance_of( WcoEmail::Message ).to receive( :apply_filter ).exactly(1).times.with( filter )
       end
       stub   = create( :message_stub,
-        bucket: 'ish-test-2024',
+        bucket: ::SES_S3_BUCKET,
         object_key: '00nn652jk1395ujdr3l11ib06jam0oevjqv2o4g1' )
       stub.do_process
     end
@@ -39,7 +39,7 @@ RSpec.describe WcoEmail::MessageStub do
         expect_any_instance_of( WcoEmail::Message ).to_not receive( :apply_filter ).exactly(0).times
       end
       stub   = create( :message_stub,
-        bucket: 'ish-test-2024',
+        bucket: ::SES_S3_BUCKET,
         object_key: '00nn652jk1395ujdr3l11ib06jam0oevjqv2o4g1' )
       stub.do_process
     end
@@ -48,7 +48,7 @@ RSpec.describe WcoEmail::MessageStub do
       it 'send for inbox' do
         expect( WcoEmail::ApplicationMailer ).to receive(:forwarder_notify
           ).exactly(1).times.and_return( WcoEmail::ApplicationMailer.forwarder_notify(WcoEmail::Message.all.first.id) )
-        stub   = create( :message_stub, bucket: 'ish-test-2024', object_key: '00nn652jk1395ujdr3l11ib06jam0oevjqv2o4g1' )
+        stub   = create( :message_stub, bucket: ::SES_S3_BUCKET, object_key: '00nn652jk1395ujdr3l11ib06jam0oevjqv2o4g1' )
         stub.do_process
       end
 
@@ -59,7 +59,7 @@ RSpec.describe WcoEmail::MessageStub do
           tag:        Wco::Tag.inbox,
         })
         expect( WcoEmail::ApplicationMailer ).to receive(:forwarder_notify).exactly(0).times
-        stub = create( :message_stub, bucket: 'ish-test-2024', object_key: '00nn652jk1395ujdr3l11ib06jam0oevjqv2o4g1' )
+        stub = create( :message_stub, bucket: ::SES_S3_BUCKET, object_key: '00nn652jk1395ujdr3l11ib06jam0oevjqv2o4g1' )
         stub.do_process
       end
     end

@@ -1,2 +1,11 @@
 
-IshModels, soon to be WcoModels
+Wco Models.
+
+== Test ==
+
+Login to the localstack container, then:
+
+  awslocal s3api put-object --bucket wco-email-ses-development \
+    --key 00nn652jk1395ujdr3l11ib06jam0oevjqv2o4g1 \
+    --body /opt/tmp/00nn652jk1395ujdr3l11ib06jam0oevjqv2o4g1
+
