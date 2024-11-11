@@ -1,6 +1,6 @@
 #!/bin/bash
 
 version=`cat VERSION`
-cat wco_email.gemspec-template | \
-  sed -e "s/\$version/$version/g" > wco_email.gemspec
+cat wco_models.gemspec-template | \
+  sed -e "s/\$version/$version/g" > wco_models.gemspec
 
