@@ -24,6 +24,9 @@ class Wco::Profile
   has_many :newsitems, class_name: 'Wco::Newsitem'
   has_and_belongs_to_many :shared_galleries, class_name: 'Wco::Gallery', inverse_of: :shared_profiles
 
+  field :sentiment, default: Iro::Stock::LONG_OR_SHORT
+  field :sentiment_num, default: 0 # 1 is very long, -1 is very short
+
   ROLE_ADMIN = 'admin'
   ROLE_GUY   = 'guy'
   ROLES      = [ ROLE_ADMIN, ROLE_GUY ]

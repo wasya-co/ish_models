@@ -9,5 +9,15 @@
       %label role
       = f.select :role, options_for_select(Wco::Profile.roles_list, selected: profile.role )
 
+    .field
+      %label schwab_access_token
+      = f.text_field :schwab_access_token
+    .field
+      %label schwab_refresh_token
+      = f.text_field :schwab_refresh_token
+    .field
+      %label schwab_access_token
+      = f.text_field :schwab_id_token
+
     .actions
       = f.submit 'Go'
