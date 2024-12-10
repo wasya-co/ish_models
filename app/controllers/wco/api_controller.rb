@@ -10,7 +10,6 @@ class Wco::ApiController < ActionController::Base
   private
 
   def decode_jwt
-    byebug
     out = JWT.decode params[:jwt_token], nil, false
     email = out[0]['email']
     user = User.find_by({ email: email })

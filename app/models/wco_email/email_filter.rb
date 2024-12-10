@@ -23,13 +23,21 @@ class WcoEmail::EmailFilter
   field :skip_from_regex
   field :skip_to_exact
 
-  has_many :email_filter_conditions
-  has_many :email_filter_skip_conditions, class_name: 'WcoEmail::EmailFilterCondition'
+  ## 'and' - all conditions must match, for filter to match
+  has_many :conditions,      class_name: '::WcoEmail::EmailFilterCondition', inverse_of: :email_filter
+  accepts_nested_attributes_for :conditions
 
-  has_and_belongs_to_many :action_tmpls, class_name: 'Wco::OfficeActionTemplate'
-  has_and_belongs_to_many :leadsets,     class_name: 'Wco::Leadset'
+  ## 'and' - all conditions must match, for filter to match
+  has_many :skip_conditions, class_name: '::WcoEmail::EmailFilterCondition', inverse_of: :email_skip_filter
+  accepts_nested_attributes_for :skip_conditions
 
-  belongs_to :tag, class_name: 'Wco::Tag', inverse_of: :email_filters, optional: true
+  has_many :actions, class_name: '::WcoEmail::EmailFilterAction', inverse_of: :email_filter
+  accepts_nested_attributes_for :actions
+
+  has_and_belongs_to_many :action_tmpls, class_name: '::Wco::OfficeActionTemplate'
+  has_and_belongs_to_many :leadsets,     class_name: '::Wco::Leadset'
+
+  belongs_to :tag, class_name: '::Wco::Tag', inverse_of: :email_filters, optional: true
 
   KIND_AUTORESPOND_TMPL = 'autorespond-template'
   KIND_AUTORESPOND_EACT = 'autorespond-email-action'
@@ -46,10 +54,12 @@ class WcoEmail::EmailFilter
   field :kind
 
 
-  belongs_to :email_template,        class_name: 'WcoEmail::EmailTemplate',         optional: true
-  belongs_to :email_action_template, class_name: 'WcoEmail::EmailActionTemplate',   optional: true
+  belongs_to :email_template,        class_name: '::WcoEmail::EmailTemplate',         optional: true
+  belongs_to :email_action_template, class_name: '::WcoEmail::EmailActionTemplate',   optional: true
 
-  has_many :conversations, class_name: 'WcoEmail::Conversation', inverse_of: :filter
+  has_many :conversations, class_name: '::WcoEmail::Conversation', inverse_of: :filter
+
+
 
 end
 

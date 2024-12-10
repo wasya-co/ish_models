@@ -7,6 +7,8 @@ Wco::Engine.routes.draw do
 
     get 'obf',              to: 'obfuscated_redirects#show' ## testing only.
     get 'obf/:id',          to: 'obfuscared_redirects#show'
+
+    get 'tags', to: 'tags#index'
   end
 
   get 'application/tinymce', to: 'application#tinymce'
