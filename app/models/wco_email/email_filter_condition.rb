@@ -8,14 +8,19 @@ class WcoEmail::EmailFilterCondition
   belongs_to :email_filter,      class_name: '::WcoEmail::EmailFilter', inverse_of: :conditions,      optional: true
   belongs_to :email_skip_filter, class_name: '::WcoEmail::EmailFilter', inverse_of: :skip_conditions, optional: true
 
+  FIELD_BODY    = 'body'
+  FIELD_EXE     = 'exe'
+  FIELD_FROM    = 'from'
+  FIELD_LEADSET = 'leadset'
   FIELD_SUBJECT = 'subject'
-  ## ...
-  FIELD_MATCH_EXE = 'match-exe' ## dynamic flexible condition
-  ## field can be: @lead or @lead.company !
+  FIELD_TO      = 'to'
   field :field
 
-  ## matchtype can be: not-in-tag
+  MATCHTYPE_EQUALS      = 'equals'
+  MATCHTYPE_HAS_TAG     = 'has-tag'
+  MATCHTYPE_NOT_HAS_TAG = 'not-has-tag'
   field :matchtype
+
   field :value
 
 

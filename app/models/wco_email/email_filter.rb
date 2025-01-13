@@ -57,6 +57,7 @@ class WcoEmail::EmailFilter
   belongs_to :email_template,        class_name: '::WcoEmail::EmailTemplate',         optional: true
   belongs_to :email_action_template, class_name: '::WcoEmail::EmailActionTemplate',   optional: true
 
+  ## @TODO: change to has_and_belongs_to_many, test-driven.
   has_many :conversations, class_name: '::WcoEmail::Conversation', inverse_of: :filter
 
 

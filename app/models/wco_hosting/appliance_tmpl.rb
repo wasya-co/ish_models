@@ -30,6 +30,8 @@ class WcoHosting::ApplianceTmpl
   #   file.close
   # end
 
+  field :docker_compose_erb, type: :string
+
   field :stdout, type: :string, default: ''
   field :stderr, type: :string, default: ''
 
