@@ -1,4 +1,10 @@
 
+module WcoEmail
+  MATCHTYPE_EQUALS      = 'equals'
+  MATCHTYPE_HAS_TAG     = 'has-tag'
+  MATCHTYPE_NOT_HAS_TAG = 'not-has-tag'
+end
+
 class WcoEmail::EmailFilterCondition
   include Mongoid::Document
   include Mongoid::Timestamps
@@ -15,15 +21,20 @@ class WcoEmail::EmailFilterCondition
   FIELD_SUBJECT = 'subject'
   FIELD_TO      = 'to'
   field :field
+  validates :field, presence: true
 
   MATCHTYPE_EQUALS      = 'equals'
   MATCHTYPE_HAS_TAG     = 'has-tag'
   MATCHTYPE_NOT_HAS_TAG = 'not-has-tag'
   field :matchtype
+  validates :matchtype, presence: true
 
   field :value
+  validates :value, presence: true
 
-
+  def to_s
+    "<EmailFilterCondition #{field} #{matchtype} #{value} />\n"
+  end
 end
 
 =begin

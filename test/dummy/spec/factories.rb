@@ -69,6 +69,17 @@ FactoryBot.define do
   end
 
   factory :email_filter, class: 'WcoEmail::EmailFilter' do
+    after :build do |doc|
+      doc.actions         << create( :email_filter_action,    email_filter: doc )
+      doc.conditions      << create( :email_filter_condition, email_filter: doc )
+      doc.skip_conditions << create( :email_filter_condition, email_filter: doc )
+    end
+  end
+
+  factory :email_filter_action, class: 'WcoEmail::EmailFilterAction' do
+  end
+
+  factory :email_filter_condition, class: 'WcoEmail::EmailFilterCondition' do
   end
 
   factory :email_message, class: 'WcoEmail::Message' do

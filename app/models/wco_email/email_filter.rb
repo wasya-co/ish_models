@@ -23,6 +23,9 @@ class WcoEmail::EmailFilter
   field :skip_from_regex
   field :skip_to_exact
 
+  has_many :actions, class_name: '::WcoEmail::EmailFilterAction', inverse_of: :email_filter
+  accepts_nested_attributes_for :actions
+
   ## 'and' - all conditions must match, for filter to match
   has_many :conditions,      class_name: '::WcoEmail::EmailFilterCondition', inverse_of: :email_filter
   accepts_nested_attributes_for :conditions
@@ -31,8 +34,6 @@ class WcoEmail::EmailFilter
   has_many :skip_conditions, class_name: '::WcoEmail::EmailFilterCondition', inverse_of: :email_skip_filter
   accepts_nested_attributes_for :skip_conditions
 
-  has_many :actions, class_name: '::WcoEmail::EmailFilterAction', inverse_of: :email_filter
-  accepts_nested_attributes_for :actions
 
   has_and_belongs_to_many :action_tmpls, class_name: '::Wco::OfficeActionTemplate'
   has_and_belongs_to_many :leadsets,     class_name: '::Wco::Leadset'
@@ -59,6 +60,22 @@ class WcoEmail::EmailFilter
 
   ## @TODO: change to has_and_belongs_to_many, test-driven.
   has_many :conversations, class_name: '::WcoEmail::Conversation', inverse_of: :filter
+
+  def to_s
+    "EmailFilter: #{from_regex} #{from_exact} #{conditions.map { |c| c.to_s }.join }"
+  end
+
+  def to_xml
+    attrs = ''
+    children = ''
+    if from_regex || from_exact
+      attrs = "#{attrs} from=#{from_regex}#{from_exact}"
+    end
+    if conditions.present?
+      children = "#{children}#{conditions.map { |c| c.to_s }.join('') }"
+    end
+    return "<EF #{attrs}>#{children}</EF>\n"
+  end
 
 
 
