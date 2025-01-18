@@ -80,6 +80,9 @@ FactoryBot.define do
   end
 
   factory :email_filter_condition, class: 'WcoEmail::EmailFilterCondition' do
+    field { 'leadset' }
+    matchtype { 'equals' }
+    value { ( WcoEmail::EmailTemplate.all.first || create( :email_template ) ).id }
   end
 
   factory :email_message, class: 'WcoEmail::Message' do
