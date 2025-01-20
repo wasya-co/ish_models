@@ -26,7 +26,7 @@ class WcoEmail::EmailFilterCondition
   MATCHTYPE_EQUALS      = 'equals'
   MATCHTYPE_HAS_TAG     = 'has-tag'
   MATCHTYPE_NOT_HAS_TAG = 'not-has-tag'
-  field :matchtype
+  field :matchtype, type: String
   validates :matchtype, presence: true
 
   field :value

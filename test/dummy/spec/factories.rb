@@ -70,9 +70,9 @@ FactoryBot.define do
 
   factory :email_filter, class: 'WcoEmail::EmailFilter' do
     after :build do |doc|
-      doc.actions         << create( :email_filter_action,    email_filter: doc )
-      doc.conditions      << create( :email_filter_condition, email_filter: doc )
-      doc.skip_conditions << create( :email_filter_condition, email_filter: doc )
+      create( :email_filter_action,    email_filter: doc )
+      create( :email_filter_condition, email_filter: doc )
+      create( :email_filter_condition, email_skip_filter: doc )
     end
   end
 
@@ -82,7 +82,7 @@ FactoryBot.define do
   factory :email_filter_condition, class: 'WcoEmail::EmailFilterCondition' do
     field { 'leadset' }
     matchtype { 'equals' }
-    value { ( WcoEmail::EmailTemplate.all.first || create( :email_template ) ).id }
+    value { Wco::Leadset.all.first.id }
   end
 
   factory :email_message, class: 'WcoEmail::Message' do

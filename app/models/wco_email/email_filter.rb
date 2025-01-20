@@ -24,15 +24,15 @@ class WcoEmail::EmailFilter
   field :skip_to_exact
 
   has_many :actions, class_name: '::WcoEmail::EmailFilterAction', inverse_of: :email_filter
-  accepts_nested_attributes_for :actions
+  accepts_nested_attributes_for :actions, allow_destroy: true
 
   ## 'and' - all conditions must match, for filter to match
   has_many :conditions,      class_name: '::WcoEmail::EmailFilterCondition', inverse_of: :email_filter
-  accepts_nested_attributes_for :conditions
+  accepts_nested_attributes_for :conditions, allow_destroy: true
 
   ## 'and' - all conditions must match, for filter to match
   has_many :skip_conditions, class_name: '::WcoEmail::EmailFilterCondition', inverse_of: :email_skip_filter
-  accepts_nested_attributes_for :skip_conditions
+  accepts_nested_attributes_for :skip_conditions, allow_destroy: true
 
 
   has_and_belongs_to_many :action_tmpls, class_name: '::Wco::OfficeActionTemplate'
