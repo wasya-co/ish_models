@@ -1,8 +1,15 @@
 
 module WcoEmail
-  MATCHTYPE_EQUALS      = 'equals'
-  MATCHTYPE_HAS_TAG     = 'has-tag'
-  MATCHTYPE_NOT_HAS_TAG = 'not-has-tag'
+  FIELD_BODY    = 'body'
+  FIELD_EXE     = 'exe'
+  FIELD_FROM    = 'from'
+  FIELD_LEADSET = 'leadset'
+  FIELD_SUBJECT = 'subject'
+  FIELD_TO      = 'to'
+
+  OPERATOR_EQUALS      = 'equals'
+  OPERATOR_HAS_TAG     = 'has-tag'
+  OPERATOR_NOT_HAS_TAG = 'not-has-tag'
 end
 
 class WcoEmail::EmailFilterCondition
@@ -14,26 +21,28 @@ class WcoEmail::EmailFilterCondition
   belongs_to :email_filter,      class_name: '::WcoEmail::EmailFilter', inverse_of: :conditions,      optional: true
   belongs_to :email_skip_filter, class_name: '::WcoEmail::EmailFilter', inverse_of: :skip_conditions, optional: true
 
-  FIELD_BODY    = 'body'
-  FIELD_EXE     = 'exe'
-  FIELD_FROM    = 'from'
-  FIELD_LEADSET = 'leadset'
-  FIELD_SUBJECT = 'subject'
-  FIELD_TO      = 'to'
+  ## see WcoEmail::FIELD_*
   field :field
   validates :field, presence: true
 
-  MATCHTYPE_EQUALS      = 'equals'
-  MATCHTYPE_HAS_TAG     = 'has-tag'
-  MATCHTYPE_NOT_HAS_TAG = 'not-has-tag'
-  field :matchtype, type: String
-  validates :matchtype, presence: true
+  OPERATOR_EQUALS      = WcoEmail::OPERATOR_EQUALS
+  OPERATOR_HAS_TAG     = WcoEmail::OPERATOR_HAS_TAG
+  OPERATOR_NOT_HAS_TAG = WcoEmail::OPERATOR_NOT_HAS_TAG
+  field :operator, type: String
+  validates :operator, presence: true
 
   field :value
   validates :value, presence: true
 
   def to_s
-    "<EmailFilterCondition #{field} #{matchtype} #{value} />\n"
+    "<EFC #{field} #{operator} #{value} />"
+  end
+  def to_s_full indent: 0
+    _value = value
+    if [ OPERATOR_HAS_TAG, OPERATOR_NOT_HAS_TAG ].include?( operator )
+      _value = Wco::Tag.find( value )
+    end
+    "#{" " * indent }<EmailFilterCondition #{field} #{operator} `#{_value}` />\n"
   end
 end
 

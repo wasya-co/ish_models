@@ -14,7 +14,6 @@ class WcoEmail::EmailFilterAction
   KIND_REMOVE_EMAIL_ACTION   = 'remove-email-action'
   field :kind
 
-  # field :action_exe ## @deprecated, use :value
   field :value # the id of a tag, or email template, or email action
 
 
@@ -33,5 +32,15 @@ class WcoEmail::EmailFilterAction
 
   def to_s
     "<EFA #{kind} #{value} />\n"
+  end
+  def to_s_full indent: 0
+    _value = value
+    if [ KIND_ADD_TAG, KIND_REMOVE_TAG ].include?( kind )
+      _value = Wco::Tag.find( value )
+    end
+    if [ KIND_AUTORESPOND ].include?( kind )
+      _value = WcoEmail::EmailTemplate.find( value )
+    end
+    "#{" " * indent }<EmailFilterAction #{kind} `#{_value}` />\n"
   end
 end

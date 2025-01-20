@@ -81,7 +81,7 @@ FactoryBot.define do
 
   factory :email_filter_condition, class: 'WcoEmail::EmailFilterCondition' do
     field { 'leadset' }
-    matchtype { 'equals' }
+    operator { 'equals' }
     value { Wco::Leadset.all.first.id }
   end
 

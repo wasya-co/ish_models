@@ -10,9 +10,6 @@ class WcoEmail::EmailFilter
 
   PAGE_PARAM_NAME = :filters_page
 
-  FIELD_OPTS     = [ :subject, :from, :to, :to_and_cc, :body, ]
-  MATCHTYPE_OPTS = [ :regex, :exact_insensitive, ]
-
   field :from_regex
   field :from_exact
   field :subject_regex
@@ -64,6 +61,22 @@ class WcoEmail::EmailFilter
   def to_s
     "EmailFilter: #{from_regex} #{from_exact} #{conditions.map { |c| c.to_s }.join }"
   end
+  def to_s_full
+    # inn = ""
+    # inn = "#{inn}#{conditions.map { |c| c.to_s_full }.join }" if conditions.present?
+    # inn = "#{inn}#{skip_conditions.map { |c| c.to_s_full }.join }" if skip_conditions.present?
+    out =<<-AOL
+<EmailFilter #{from_regex} #{from_exact}>
+#{conditions.map { |c| c.to_s_full( indent: 2) }.join }
+#{skip_conditions.map { |c| c.to_s_full( indent: 2) }.join }
+#{actions.map { |c| c.to_s_full( indent: 2) }.join }
+</EmailFilter>"
+AOL
+    while out.match(/\n\n/) do
+      out = out.gsub(/\n\n/, "\n")
+    end
+    out
+  end
 
   def to_xml
     attrs = ''
@@ -80,4 +93,4 @@ class WcoEmail::EmailFilter
 
 
 end
-
+::EF = WcoEmail::EmailFilter
