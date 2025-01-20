@@ -7,9 +7,9 @@ class WcoEmail::EmailFilterAction
   belongs_to :email_filter
 
   KIND_EXE         = 'exe'
-  KIND_REMOVE_TAG  = 'remove-tag'
-  KIND_ADD_TAG     = 'add-tag'
-  KIND_AUTORESPOND = 'autorespond-template'
+  KIND_REMOVE_TAG  = ::WcoEmail::ACTION_REMOVE_TAG
+  KIND_ADD_TAG     = ::WcoEmail::ACTION_ADD_TAG
+  KIND_AUTORESPOND = ::WcoEmail::ACTION_AUTORESPOND
   KIND_SCHEDULE_EMAIL_ACTION = 'autorespond-email-action'
   KIND_REMOVE_EMAIL_ACTION   = 'remove-email-action'
   field :kind

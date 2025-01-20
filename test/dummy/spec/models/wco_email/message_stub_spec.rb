@@ -2,14 +2,25 @@
 RSpec.describe WcoEmail::MessageStub do
 
   before do
-    # Wco::Lead.unscoped.map &:destroy!
-    # WcoEmail::Conversation.unscoped.map &:destroy!
-    # @conv = create(:email_conversation)
+    destroy_every(
+      Wco::Lead,
+      Wco::Leadset,
+      Wco::Tag,
+      WcoEmail::Conversation,
+      WcoEmail::EmailTemplate,
+    );
+    @conv = create(:email_conversation)
+    @leadset = create(:leadset, email: 'MAILER-DAEMON@amazonses.com' )
+    @not_spam = Wco::Tag.create!({ slug: 'not-spam' })
+    @email_template = create(:email_template)
   end
 
   context '#do_process' do
     before do
-      destroy_every( Wco::Lead, Wco::Leadset, WcoEmail::MessageStub, WcoEmail::EmailFilter )
+      destroy_every(
+        WcoEmail::EmailFilter,
+        WcoEmail::MessageStub,
+      );
     end
 
     it 'applies filters' do
@@ -19,8 +30,8 @@ RSpec.describe WcoEmail::MessageStub do
         { subject_exact: 'undeliverable' },
         { subject_regex: '^U' },
       ]
-      filter_params.each do |filter_param|
-        filter = create( :email_filter, filter_param )
+      filter_params.each do |param|
+        filter = create( :email_filter, param )
         expect_any_instance_of( WcoEmail::Message ).to receive( :apply_filter ).exactly(1).times.with( filter )
       end
       stub   = create( :message_stub,
@@ -34,8 +45,8 @@ RSpec.describe WcoEmail::MessageStub do
         { from_exact: 'MAILER-DAEMON@amazonses.com', skip_to_exact: 'info-jpmorgan-lfetgfmltj@wasya.co' },
         { from_exact: 'MAILER-DAEMON@amazonses.com', skip_from_regex: 'trashy|amazonses\.com$|^zebras$' },
       ]
-      filter_params.each do |filter_param|
-        filter = create( :email_filter, filter_param )
+      filter_params.each do |param|
+        filter = create( :email_filter, param )
         expect_any_instance_of( WcoEmail::Message ).to_not receive( :apply_filter ).exactly(0).times
       end
       stub   = create( :message_stub,
@@ -62,6 +73,32 @@ RSpec.describe WcoEmail::MessageStub do
         stub = create( :message_stub, bucket: ::SES_S3_BUCKET, object_key: '00nn652jk1395ujdr3l11ib06jam0oevjqv2o4g1' )
         stub.do_process
       end
+    end
+
+    it '202501 - applies related conditions: leadset not-has-tag,
+                            skip_conditions: none so far : (
+                                    actions: remove-tag, add-tag, autorespond' do
+      n_in_inbox = Wco::Tag.inbox.conversations.length
+      n_in_inbox.should eql 0
+      n_in_trash = Wco::Tag.trash.conversations.length
+      n_in_trash.should eql 0
+      n_contexts = WcoEmail::Context.all.length
+      filter = WcoEmail::EmailFilter.create!({
+        conditions_attributes: [
+          { field: 'leadset', operator: 'not-has-tag', value: @not_spam.id },
+        ],
+        actions_attributes: [
+          { kind: 'remove-tag',   value: Wco::Tag.inbox.id },
+          { kind: 'add-tag',      value: Wco::Tag.trash.id },
+          { kind: ::WcoEmail::ACTION_AUTORESPOND, value: @email_template.id },
+        ],
+      })
+      stub = create( :message_stub, bucket: ::SES_S3_BUCKET, object_key: '00nn652jk1395ujdr3l11ib06jam0oevjqv2o4g1' )
+
+      stub.do_process
+      Wco::Tag.inbox.conversations.length.should eql 0
+      Wco::Tag.trash.conversations.length.should eql 1
+      WcoEmail::Context.all.length.should eql( n_contexts + 1 )
     end
   end
 

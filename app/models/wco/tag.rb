@@ -30,14 +30,19 @@ class Wco::Tag
     find_or_create_by({ slug: INBOX })
   end
 
-  TRASH = 'trash'
-  def self.trash
-    find_or_create_by({ slug: TRASH })
-  end
-
   SPAM = 'spam'
   def self.spam
     find_or_create_by({ slug: SPAM })
+  end
+
+  NOT_SPAM = 'not-spam'
+  def self.not_spam
+    find_or_create_by({ slug: NOT_SPAM })
+  end
+
+  TRASH = 'trash'
+  def self.trash
+    find_or_create_by({ slug: TRASH })
   end
 
   def to_s

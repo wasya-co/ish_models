@@ -1,17 +1,4 @@
 
-module WcoEmail
-  FIELD_BODY    = 'body'
-  FIELD_EXE     = 'exe'
-  FIELD_FROM    = 'from'
-  FIELD_LEADSET = 'leadset'
-  FIELD_SUBJECT = 'subject'
-  FIELD_TO      = 'to'
-
-  OPERATOR_EQUALS      = 'equals'
-  OPERATOR_HAS_TAG     = 'has-tag'
-  OPERATOR_NOT_HAS_TAG = 'not-has-tag'
-end
-
 class WcoEmail::EmailFilterCondition
   include Mongoid::Document
   include Mongoid::Timestamps

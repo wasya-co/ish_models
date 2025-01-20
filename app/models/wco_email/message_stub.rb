@@ -57,7 +57,7 @@ class WcoEmail::MessageStub
     raw      = @client.get_object( bucket: stub.bucket, key: stub.object_key ).body.read
     raw      = raw.encode('utf-8', invalid: :replace, undef: :replace, replace: '_' )
     the_mail = Mail.new( raw )
-    puts! the_mail, 'the_mail'
+    # puts! the_mail, 'the_mail'
 
     message_id         = the_mail.header['message-id']&.decoded
     message_id       ||= "#{the_mail.date&.iso8601}::#{the_mail.from}"
@@ -197,6 +197,20 @@ class WcoEmail::MessageStub
       end
       if filter.subject_exact.present? && @message.subject.downcase.include?( filter.subject_exact.downcase )
         reason = 'subject_exact'
+      end
+
+      filter.conditions.each do |cond|
+        case cond.field
+        when WcoEmail::FIELD_LEADSET
+          if cond.operator == WcoEmail::OPERATOR_NOT_HAS_TAG
+            this_tag = Wco::Tag.find cond.value
+            if leadset.tags.include?( this_tag )
+              ;
+            else
+              reason = "condition leadset not-has-tag #{this_tag} NOT met"
+            end
+          end
+        end
       end
 
       if reason

@@ -124,7 +124,27 @@ class WcoEmail::Message
       })
 
     else
-      raise "unknown filter kind: #{filter.kind}"
+      if filter.actions.present?
+        filter.actions.each do |act|
+          case act.kind
+          when ::WcoEmail::ACTION_REMOVE_TAG
+            this_tag = Wco::Tag.find( act.value )
+            conv.tags -= [ this_tag ]
+          when ::WcoEmail::ACTION_ADD_TAG
+            this_tag = Wco::Tag.find( act.value )
+            conv.tags += [ this_tag ]
+          when ::WcoEmail::ACTION_AUTORESPOND
+            this_template = WcoEmail::EmailTemplate.find( act.value )
+            WcoEmail::Context.create!({
+              email_template: this_template,
+              lead_id:        lead.id,
+              send_at:        Time.now,
+            })
+          end
+        end
+      else
+        raise "unknown filter kind: #{filter.kind}"
+      end
     end
 
     conv.save!
