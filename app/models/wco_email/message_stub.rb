@@ -210,6 +210,10 @@ class WcoEmail::MessageStub
               reason = "condition leadset not-has-tag #{this_tag} NOT met"
             end
           end
+        when WcoEmail::FIELD_TO
+          if @message.to == cond.value
+            reason = "condition to = #{cond.value}"
+          end
         end
       end
 

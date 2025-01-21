@@ -77,6 +77,7 @@ FactoryBot.define do
   end
 
   factory :email_filter_action, class: 'WcoEmail::EmailFilterAction' do
+    kind { 'exe' }
   end
 
   factory :email_filter_condition, class: 'WcoEmail::EmailFilterCondition' do

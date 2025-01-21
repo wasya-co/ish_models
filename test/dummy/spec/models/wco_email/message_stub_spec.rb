@@ -75,9 +75,9 @@ RSpec.describe WcoEmail::MessageStub do
       end
     end
 
-    it '202501 - applies related conditions: leadset not-has-tag,
-                            skip_conditions: none so far : (
-                                    actions: remove-tag, add-tag, autorespond' do
+    it 'Applies related conditions: leadset not-has-tag,
+                   skip_conditions:
+                           actions: remove-tag, add-tag, autorespond' do
       n_in_inbox = Wco::Tag.inbox.conversations.length
       n_in_inbox.should eql 0
       n_in_trash = Wco::Tag.trash.conversations.length
@@ -98,6 +98,24 @@ RSpec.describe WcoEmail::MessageStub do
       stub.do_process
       Wco::Tag.inbox.conversations.length.should eql 0
       Wco::Tag.trash.conversations.length.should eql 1
+      WcoEmail::Context.all.length.should eql( n_contexts + 1 )
+    end
+
+    it 'Applies conditions: to,
+           skip_conditions:
+                   actions: autorespond' do
+      n_contexts = WcoEmail::Context.all.length
+      filter = WcoEmail::EmailFilter.create!({
+        conditions_attributes: [
+          { field: 'to', operator: 'text-input', value: 'info-jpmorgan-lfetgfmltj@wasya.co' },
+        ],
+        actions_attributes: [
+          { kind: ::WcoEmail::ACTION_AUTORESPOND, value: @email_template.id },
+        ],
+      })
+      stub = create( :message_stub, bucket: ::SES_S3_BUCKET, object_key: '00nn652jk1395ujdr3l11ib06jam0oevjqv2o4g1' )
+
+      stub.do_process
       WcoEmail::Context.all.length.should eql( n_contexts + 1 )
     end
   end

@@ -13,6 +13,7 @@ class WcoEmail::EmailFilterAction
   KIND_SCHEDULE_EMAIL_ACTION = 'autorespond-email-action'
   KIND_REMOVE_EMAIL_ACTION   = 'remove-email-action'
   field :kind
+  validates :kind, inclusion: ::WcoEmail::ACTIONS
 
   field :value # the id of a tag, or email template, or email action
 

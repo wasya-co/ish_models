@@ -8,11 +8,11 @@ RSpec.describe WcoEmail::EmailFilter, type: :model do
       Wco::Leadset,
       Wco::Tag,
     )
-    # @tag = Wco::Tag.create( slug: 'test-tag' )
+    create( :leadset )
   end
 
   it 'habtm leadsets' do
-    f = WcoEmail::EmailFilter.create
+    f = create( :email_filter )
     f.persisted?.should eql true
 
     ls = Wco::Leadset.create company_url: 'wasya.co'

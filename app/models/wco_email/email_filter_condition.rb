@@ -12,11 +12,8 @@ class WcoEmail::EmailFilterCondition
   field :field
   validates :field, presence: true
 
-  OPERATOR_EQUALS      = WcoEmail::OPERATOR_EQUALS
-  OPERATOR_HAS_TAG     = WcoEmail::OPERATOR_HAS_TAG
-  OPERATOR_NOT_HAS_TAG = WcoEmail::OPERATOR_NOT_HAS_TAG
   field :operator, type: String
-  validates :operator, presence: true
+  validates :operator, presence: true, inclusion: ::WcoEmail::OPERATORS
 
   field :value
   validates :value, presence: true
@@ -33,11 +30,3 @@ class WcoEmail::EmailFilterCondition
   end
 end
 
-=begin
-
-## not whitelisted
-tag = Wco::Tag.find_by({ slug: 'known-leadsets' })
-out = @company.tags.include?( tag )
-!out
-
-=end

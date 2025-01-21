@@ -15,7 +15,6 @@ RSpec.describe WcoEmail::EmailFilterAction, type: :model do
       value: '@TODO',
     })
     f.persisted?.should eql false
-    puts! f.errors.full_messages, 'could not create an EmailFilterAction.'
   end
 
 end
