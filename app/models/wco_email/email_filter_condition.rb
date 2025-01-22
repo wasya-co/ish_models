@@ -23,10 +23,10 @@ class WcoEmail::EmailFilterCondition
   end
   def to_s_full indent: 0
     _value = value
-    if [ OPERATOR_HAS_TAG, OPERATOR_NOT_HAS_TAG ].include?( operator )
+    if [ ::WcoEmail::OPERATOR_HAS_TAG, ::WcoEmail::OPERATOR_NOT_HAS_TAG ].include?( operator )
       _value = Wco::Tag.find( value )
     end
-    "#{" " * indent }<EmailFilterCondition #{field} #{operator} `#{_value}` />\n"
+    "#{" " * indent }<EF#{email_skip_filter ? 'Skip' : ''}Condition #{field} #{operator} `#{_value}` />\n"
   end
 end
 

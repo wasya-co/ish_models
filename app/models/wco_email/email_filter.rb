@@ -37,6 +37,7 @@ class WcoEmail::EmailFilter
   ## 'and' - all conditions must match, for filter to match
   has_many :skip_conditions, class_name: '::WcoEmail::EmailFilterCondition', inverse_of: :email_skip_filter
   accepts_nested_attributes_for :skip_conditions, allow_destroy: true
+
   validate :validate_conditions
   def validate_conditions
     if conditions.length + skip_conditions.length == 0

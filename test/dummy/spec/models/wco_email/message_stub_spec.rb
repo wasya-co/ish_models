@@ -118,6 +118,28 @@ RSpec.describe WcoEmail::MessageStub do
       stub.do_process
       WcoEmail::Context.all.length.should eql( n_contexts + 1 )
     end
+
+    it 'Applies conditions: to,
+           skip_conditions: to,
+                   actions: autorespond' do
+      n_contexts = WcoEmail::Context.all.length
+      filter = WcoEmail::EmailFilter.create!({
+        conditions_attributes: [
+          { field: 'to', operator: 'text-input', value: 'info-jpmorgan-lfetgfmltj@wasya.co' },
+        ],
+        skip_conditions_attributes: [
+          { field: 'to', operator: 'text-input', value: 'info-jpmorgan-lfetgfmltj@wasya.co' },
+        ],
+        actions_attributes: [
+          { kind: ::WcoEmail::ACTION_AUTORESPOND, value: @email_template.id },
+        ],
+      })
+      stub = create( :message_stub, bucket: ::SES_S3_BUCKET, object_key: '00nn652jk1395ujdr3l11ib06jam0oevjqv2o4g1' )
+
+      stub.do_process
+      WcoEmail::Context.all.length.should eql( n_contexts ) # unchanged
+
+    end
   end
 
 end

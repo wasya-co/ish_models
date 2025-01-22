@@ -229,6 +229,25 @@ class WcoEmail::MessageStub
           skip_reason = 'skip_from_regex'
         end
 
+        ## @TODO: this, and iterating over filter.conditions, should be abstracted into one place.
+        filter.skip_conditions.each do |scond|
+          case scond.field
+          when WcoEmail::FIELD_LEADSET
+            if scond.operator == WcoEmail::OPERATOR_NOT_HAS_TAG
+              this_tag = Wco::Tag.find scond.value
+              if leadset.tags.include?( this_tag )
+                ;
+              else
+                skip_reason = "skip_condition leadset not-has-tag #{this_tag} NOT met"
+              end
+            end
+          when WcoEmail::FIELD_TO
+            if @message.to == scond.value
+              skip_reason = "skip_condition to = #{scond.value}"
+            end
+          end
+        end
+
         if skip_reason
           puts! "NOT Applying filter #{filter} to conv #{@message.conversation} for matching #{skip_reason}" if DEBUG
         else

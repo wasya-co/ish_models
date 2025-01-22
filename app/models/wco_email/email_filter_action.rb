@@ -42,6 +42,6 @@ class WcoEmail::EmailFilterAction
     if [ KIND_AUTORESPOND ].include?( kind )
       _value = WcoEmail::EmailTemplate.find( value )
     end
-    "#{" " * indent }<EmailFilterAction #{kind} `#{_value}` />\n"
+    "#{" " * indent }<EFAction #{kind} `#{_value}` />\n"
   end
 end
