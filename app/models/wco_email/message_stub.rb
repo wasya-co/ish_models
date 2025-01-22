@@ -199,22 +199,8 @@ class WcoEmail::MessageStub
         reason = 'subject_exact'
       end
 
-      filter.conditions.each do |cond|
-        case cond.field
-        when WcoEmail::FIELD_LEADSET
-          if cond.operator == WcoEmail::OPERATOR_NOT_HAS_TAG
-            this_tag = Wco::Tag.find cond.value
-            if leadset.tags.include?( this_tag )
-              ;
-            else
-              reason = "condition leadset not-has-tag #{this_tag} NOT met"
-            end
-          end
-        when WcoEmail::FIELD_TO
-          if @message.to == cond.value
-            reason = "condition to = #{cond.value}"
-          end
-        end
+      filter.conditions.each do |scond|
+        reason ||= scond.apply(leadset: leadset, message: @message )
       end
 
       if reason
@@ -229,23 +215,8 @@ class WcoEmail::MessageStub
           skip_reason = 'skip_from_regex'
         end
 
-        ## @TODO: this, and iterating over filter.conditions, should be abstracted into one place.
         filter.skip_conditions.each do |scond|
-          case scond.field
-          when WcoEmail::FIELD_LEADSET
-            if scond.operator == WcoEmail::OPERATOR_NOT_HAS_TAG
-              this_tag = Wco::Tag.find scond.value
-              if leadset.tags.include?( this_tag )
-                ;
-              else
-                skip_reason = "skip_condition leadset not-has-tag #{this_tag} NOT met"
-              end
-            end
-          when WcoEmail::FIELD_TO
-            if @message.to == scond.value
-              skip_reason = "skip_condition to = #{scond.value}"
-            end
-          end
+          skip_reason ||= scond.apply(leadset: leadset, message: @message )
         end
 
         if skip_reason
