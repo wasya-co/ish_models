@@ -16,6 +16,6 @@ git push
 gem build wco_models.gemspec
 gem push wco_models-$version.gem
 
-rm wco_email-`cat VERSION`.gem
+rm wco_models-`cat VERSION`.gem
 
-echo "wco_email build ok"
+echo "wco_models build ok"
