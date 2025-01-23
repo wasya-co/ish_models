@@ -242,8 +242,10 @@ class WcoEmail::MessageStub
       ## 2025-01-23 no longer sending to google.
       conv = WcoEmail::Conversation.find( conv.id )
       if conv.tags.include? Wco::Tag.inbox
-        # out = WcoEmail::ApplicationMailer.forwarder_notify( @message.id.to_s )
-        # Rails.env.production? ? out.deliver_later : out.deliver_now
+        if defined?(::NOTIFY_TO_GOOGLE) && ::NOTIFY_TO_GOOGLE
+          out = WcoEmail::ApplicationMailer.forwarder_notify( @message.id.to_s )
+          Rails.env.production? ? out.deliver_later : out.deliver_now
+        end
       end
     end
 
