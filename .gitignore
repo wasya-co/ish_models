@@ -12,11 +12,16 @@ node_modules
 
 /pkg/
 
-/tmp/
+/tmp/*
+!/tmp/.keep
 /test/dummy/config/initializers/0*
 /test/dummy/log/*.log
 /test/dummy/tmp/
 *trash
 
 /vendor/bundle
+/volumes/localstack_development_data/*
+/volumes/mongo_development_data/*
+!/volumes/localstack_development_data/.keep
+!/volumes/mongo_development_data/.keep
 .DS_Store

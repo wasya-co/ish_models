@@ -24,7 +24,9 @@ RSpec::describe Wco::TagsController do
     assigns(:tags).length.should > 0
   end
 
-  it '#show' do
+  it '#show - with stubs' do
+    ## herehere
+    create(:message_stub, tag: @tag )
     get :show, params: { id: @tag.id }
     response.code.should eql '200'
   end
