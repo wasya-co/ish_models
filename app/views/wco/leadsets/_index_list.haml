@@ -1,0 +1,5 @@
+
+.leadsets.index--list
+  %ul
+    - leadsets.each do |ls|
+      %li= link_to ls, leadset_path(ls)

@@ -22,6 +22,9 @@
       = render '/wco/headlines/index', headlines: @tag.headlines
 
     %li.d-flex
+      <b>Leadsets (#{@tag.leadsets.length}):&nbsp;</b>
+      = render '/wco/leadsets/index_list', leadsets: @tag.leadsets
+    %li.d-flex
       <b>Leads (#{@tag.leads.length}):&nbsp;</b>
       = render '/wco/leads/index', leads: @tag.leads
 
