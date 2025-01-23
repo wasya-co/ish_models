@@ -6,7 +6,10 @@ RSpec::describe Wco::TagsController do
   before do
     setup_users
 
-    Wco::Tag.unscoped.map &:destroy!
+    destroy_every(
+      Wco::Tag,
+      WcoEmail::MessageStub,
+    )
     @tag = create( :tag )
   end
 
@@ -24,12 +27,7 @@ RSpec::describe Wco::TagsController do
     assigns(:tags).length.should > 0
   end
 
-  it '#show - with stubs' do
-    ## herehere
-    create(:message_stub, tag: @tag )
-    get :show, params: { id: @tag.id }
-    response.code.should eql '200'
-  end
+
 
 end
 

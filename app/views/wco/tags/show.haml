@@ -12,7 +12,7 @@
             = render '/wco_email/conversations/table', convs: @tag.conversations
       %li.d-flex
         <b>Message Stubs (#{@tag.message_stubs.length}):&nbsp;</b>
-        = render '/wco_email/message_stubs/index', stubs: @tag.message_stubs # .page( params[:stubs_page] )
+        = render '/wco_email/message_stubs/index', stubs: @tag.message_stubs.page( params[:stubs_page] )
 
     %li.d-flex
       <b>Galleries (#{@galleries.length}):&nbsp;</b>
