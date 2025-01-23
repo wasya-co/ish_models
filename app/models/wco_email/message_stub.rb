@@ -239,10 +239,11 @@ class WcoEmail::MessageStub
     else
       ## 2024-07-30 I'm no longer sending these to google.
       ## 2024-11-03 restarted sending.
+      ## 2025-01-23 no longer sending to google.
       conv = WcoEmail::Conversation.find( conv.id )
       if conv.tags.include? Wco::Tag.inbox
-        out = WcoEmail::ApplicationMailer.forwarder_notify( @message.id.to_s )
-        Rails.env.production? ? out.deliver_later : out.deliver_now
+        # out = WcoEmail::ApplicationMailer.forwarder_notify( @message.id.to_s )
+        # Rails.env.production? ? out.deliver_later : out.deliver_now
       end
     end
 
