@@ -33,9 +33,7 @@
             = link_to leadset.company_url, leadset_path(leadset)
 
           %td.tags
-            - leadset.tags.each_with_index do |tag, idx2|
-              .chip
-                = tag.name
+            = render '/wco/tags/index_chips', tags: leadset.tags
 
           %td.leads
             = leadset.leads.length

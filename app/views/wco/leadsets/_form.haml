@@ -26,6 +26,10 @@
   -#   %label Stripe customer_id
   -#   = f.text_field :customer_id
 
+  .field
+    %label tags
+    = f.select :tag_ids, options_for_select(@tags_list, selected: leadset.tag_ids), {}, { multiple: true }
+
   .actions
     = f.submit
 

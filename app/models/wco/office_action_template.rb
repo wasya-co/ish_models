@@ -39,3 +39,21 @@ class Wco::OfficeActionTemplate
   end
 end
 # OAT ||= Wco::OfficeActionTemplate
+
+## mark-leadsets-as-spam
+=begin
+
+@conversations.each do |c|
+  c.tags.delete( Wco::Tag.inbox )
+  c.save
+  c.leadsets.each do |leadset|
+    leadset.tags.delete( Wco::Tag.not_spam )
+    leadset.tags.push( Wco::Tag.spam )
+    leadset.save
+  end
+  # print('.')
+end
+
+=end
+
+
