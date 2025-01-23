@@ -5,6 +5,8 @@ class Wco::Leadset
   include Mongoid::Paranoia
   store_in collection: 'wco_leadsets'
 
+  PAGE_PARAM_NAME = 'leadsets_page'
+
   field     :company_url
   validates :company_url, presence: true, uniqueness: true
   index({ company_url: 1 }, { unique: true, name: 'company_url' })

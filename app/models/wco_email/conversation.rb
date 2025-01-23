@@ -5,6 +5,8 @@ class WcoEmail::Conversation
   include Mongoid::Paranoia
   store_in collection: 'office_email_conversations'
 
+  PAGE_PARAM_NAME = 'conversations_page'
+
   STATUS_UNREAD = 'status_unread'
   STATUS_READ   = 'status_read'
   STATUSES      = [ STATUS_UNREAD, STATUS_READ ]

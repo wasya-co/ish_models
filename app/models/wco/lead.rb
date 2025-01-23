@@ -5,6 +5,8 @@ class Wco::Lead
   include Mongoid::Paranoia
   store_in collection: 'wco_leads'
 
+  PAGE_PARAM_NAME = 'leads_page'
+
   field :email
   validates :email, presence: true, uniqueness: true
   index({ email: -1 }, { unique: true })

@@ -7,6 +7,7 @@ class Wco::Gallery
   include Wco::Utils
   store_in collection: 'galleries'
 
+  PAGE_PARAM_NAME = 'galleries_page'
 
   field :name
   validates :name, :uniqueness => true

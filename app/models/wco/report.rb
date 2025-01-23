@@ -9,6 +9,8 @@ class Wco::Report
   include Wco::Utils
   store_in collection: 'wco_reports'
 
+  PAGE_PARAM_NAME = 'reports_page'
+
   field :title
   validates :title, presence: true # , uniqueness: true
   index({ title: 1 }, { unique: true })

@@ -16,6 +16,8 @@ class WcoEmail::MessageStub
   include Mongoid::Paranoia
   store_in collection: 'wco_email_message_stub'
 
+  PAGE_PARAM_NAME = 'stubs_page'
+
   STATUS_PENDING   = 'status_pending'
   STATUS_PROCESSED = 'status_processed'
   STATUS_FAILED    = 'status_failed'

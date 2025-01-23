@@ -9,6 +9,8 @@ class Wco::Video
   include Wco::Utils
   store_in collection: 'videos'
 
+  PAGE_PARAM_NAME = 'videos_page'
+
   field :name, :type => String
   index({ created_at: -1 })
   index({ created_at: -1, name: -1 })
